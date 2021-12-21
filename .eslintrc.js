@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/vue3-essential',
+    'plugin:vue/vue3-recommended',
     '@vue/airbnb',
     '@vue/typescript/recommended',
   ],
@@ -12,7 +12,10 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    'import/prefer-default-export': 'off',
+    'max-len': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-else-return': 'off',
   },
 };
