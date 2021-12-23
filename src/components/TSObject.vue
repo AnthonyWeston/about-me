@@ -1,28 +1,28 @@
 <template>
-  <span :class="`depth-mod-${depth % 3}`">{</span>
+  <span :class="`depth-mod-${depth % 3}`">{{ openBracket }}</span>
   <br>
   <template
     v-for="(keyValue, key) in $props.value"
     :key="key"
   >
     <Indent :count="depth + 1" />
-    <span class="object-key">{{ `${key}: ` }}</span>
+    <span
+      v-if="!Array.isArray(value)"
+      class="object-key"
+    >{{ `${key}:` }}&nbsp;</span>
     <TSLiteral
       :value="keyValue"
       :depth="depth + 1"
     />,<br>
   </template>
   <Indent :count="depth" />
-  <span :class="`depth-mod-${depth % 3}`">}</span>
+  <span :class="`depth-mod-${depth % 3}`">{{ closeBracket }}</span>
 </template>
 
 <script lang="ts">
 
 import {
   defineComponent,
-  inject,
-  provide,
-  ref,
 } from 'vue';
 import Indent from './Indent.vue';
 
@@ -39,6 +39,14 @@ export default defineComponent({
       required: true,
       validator: Number.isInteger,
       default: 0,
+    },
+  },
+  computed: {
+    openBracket() {
+      return Array.isArray(this.value) ? '[' : '{';
+    },
+    closeBracket() {
+      return Array.isArray(this.value) ? ']' : '}';
     },
   },
 });

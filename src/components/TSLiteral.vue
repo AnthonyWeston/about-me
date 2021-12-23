@@ -8,14 +8,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TSArray from './TSArray.vue';
 import TSObject from './TSObject.vue';
 import TSPrimitive from './TSPrimitive.vue';
 
 export default defineComponent({
   name: 'TSLiteral',
   components: {
-    TSArray,
     TSObject,
     TSPrimitive,
   },
@@ -34,8 +32,6 @@ export default defineComponent({
     componentType(): string {
       if (this.isPrimitive) {
         return 'TSPrimitive';
-      } else if (Array.isArray(this.value)) {
-        return 'TSArray';
       } else {
         return 'TSObject';
       }
