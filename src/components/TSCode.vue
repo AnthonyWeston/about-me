@@ -44,6 +44,10 @@ export default defineComponent({
     font-family: 'Droid Sans Mono', 'Consolas', monospace;
     font-size: 1em;
     line-height: 1.5em;
+
+    & :is(span, div) {
+      user-select: none;
+    }
   }
 
   .keyword {

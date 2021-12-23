@@ -1,30 +1,25 @@
 <template>
   <span :class="`depth-mod-${depth % 3}`">{{ openBracket }}</span>
-  <template
-    v-for="(key, index) in Object.keys(value)"
-    :key="key"
-  >
-    <TSObjectLine
-      :collapsed="inline"
-      :indent="depth + 1"
+  <div :class="{ 'object-lines': true, inline }">
+    <template
+      v-for="(key, index) in Object.keys(value)"
+      :key="key"
     >
-      <span
-        v-if="!Array.isArray(value)"
-        class="object-key"
-      >{{ `${key}:` }}&nbsp;</span>
-      <TSLiteral
-        :value="value[key]"
-        :depth="depth + 1"
-      /><template v-if="!(inline &&index === Object.keys(value).length - 1)">,</template>
-      <template v-else>&nbsp;</template>
-    </TSObjectLine>
-  </template>
-  <TSObjectLine
-    :collapsed="inline"
-    :indent="inline ? 0 : depth"
-  >
-    <span :class="`depth-mod-${depth % 3}`">{{ closeBracket }}</span>
-  </TSObjectLine>
+      <div
+        class="object-content"
+      >
+        <span
+          v-if="!Array.isArray(value)"
+          class="object-key"
+        >{{ `${key}:` }}&nbsp;</span>
+        <TSLiteral
+          :value="value[key]"
+          :depth="depth + 1"
+        /><template v-if="!(inline &&index === Object.keys(value).length - 1)">,</template>
+      </div>
+    </template>
+  </div>
+  <span :class="`depth-mod-${depth % 3}`">{{ closeBracket }}</span>
 </template>
 
 <script lang="ts">
@@ -32,13 +27,9 @@
 import {
   defineComponent,
 } from 'vue';
-import TSObjectLine from './TSObjectLine.vue';
 
 export default defineComponent({
   name: 'TSObject',
-  components: {
-    TSObjectLine,
-  },
   props: {
     value: {
       type: Object,
@@ -81,5 +72,24 @@ export default defineComponent({
   }
   .depth-mod-2 {
     color: #179fff;
+  }
+
+  .object-lines {
+    margin: 0 2em;
+    display: flow-root;
+
+    &.inline {
+      margin: 0;
+      display: inline;
+
+      .object-content {
+        display: inline;
+        margin-left: 1em;
+
+        &:last-of-type {
+          margin-right: 1em;
+        }
+      }
+    }
   }
 </style>
