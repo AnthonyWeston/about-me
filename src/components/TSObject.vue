@@ -1,22 +1,30 @@
 <template>
   <span :class="`depth-mod-${depth % 3}`">{{ openBracket }}</span>
-  <br>
   <template
-    v-for="(keyValue, key) in $props.value"
+    v-for="(key, index) in Object.keys(value)"
     :key="key"
   >
-    <Indent :count="depth + 1" />
-    <span
-      v-if="!Array.isArray(value)"
-      class="object-key"
-    >{{ `${key}:` }}&nbsp;</span>
-    <TSLiteral
-      :value="keyValue"
-      :depth="depth + 1"
-    />,<br>
+    <TSObjectLine
+      :collapsed="inline"
+      :indent="depth + 1"
+    >
+      <span
+        v-if="!Array.isArray(value)"
+        class="object-key"
+      >{{ `${key}:` }}&nbsp;</span>
+      <TSLiteral
+        :value="value[key]"
+        :depth="depth + 1"
+      /><template v-if="!(inline &&index === Object.keys(value).length - 1)">,</template>
+      <template v-else>&nbsp;</template>
+    </TSObjectLine>
   </template>
-  <Indent :count="depth" />
-  <span :class="`depth-mod-${depth % 3}`">{{ closeBracket }}</span>
+  <TSObjectLine
+    :collapsed="inline"
+    :indent="inline ? 0 : depth"
+  >
+    <span :class="`depth-mod-${depth % 3}`">{{ closeBracket }}</span>
+  </TSObjectLine>
 </template>
 
 <script lang="ts">
@@ -24,11 +32,13 @@
 import {
   defineComponent,
 } from 'vue';
-import Indent from './Indent.vue';
+import TSObjectLine from './TSObjectLine.vue';
 
 export default defineComponent({
   name: 'TSObject',
-  components: { Indent },
+  components: {
+    TSObjectLine,
+  },
   props: {
     value: {
       type: Object,
@@ -42,6 +52,9 @@ export default defineComponent({
     },
   },
   computed: {
+    inline() {
+      return Object.keys(this.value).length <= 2;
+    },
     openBracket() {
       return Array.isArray(this.value) ? '[' : '{';
     },

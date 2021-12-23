@@ -1,5 +1,5 @@
 <template>
-  <span class="indent">{{ '  '.repeat(count) }}</span>
+  <span :class="{ indent: true, collapsed }">{{ '  '.repeat(indent) }}</span>
 </template>
 
 <script lang="ts">
@@ -8,8 +8,12 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
-    count: {
+    indent: {
       type: Number,
+      required: true,
+    },
+    collapsed: {
+      type: Boolean,
       required: true,
     },
   },
@@ -17,7 +21,7 @@ export default defineComponent({
 </script>
 
 <style>
-  .indent {
+  .indent:not(.collapsed) {
     white-space: pre;
   }
 </style>

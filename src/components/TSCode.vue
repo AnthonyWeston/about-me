@@ -20,12 +20,14 @@ export default defineComponent({
   data() {
     return {
       value: {
+      // },
         name: 'Anthony',
-        numbers: [1, '2', { 3: 4 }],
         emptyArray: [],
+        shortArray: [true, false],
+        longArray: [1, '2', { 3: 4 }],
         emptyObject: {},
-        hello: undefined,
-        object: { x: 'y' },
+        smallObject: { a: null, b: undefined },
+        object: { x: 'y', w: 'z', a: 'b' },
       },
     };
   },
