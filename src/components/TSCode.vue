@@ -1,11 +1,13 @@
 <template>
-  <code>
-    <span class="keyword">const</span> <span class="variable-declaration">aweston</span>:
-    <span class="type">Developer</span> =
-    <TSLiteral
-      :value="value"
-    />
-  </code>
+  <div class="code-block">
+    <code>
+      <span class="keyword">const</span> <span class="variable-declaration">aweston</span>:
+      <span class="type">Developer</span> =
+      <TSLiteral
+        :value="value"
+      />
+    </code>
+  </div>
 </template>
 
 <script lang="ts">
@@ -38,11 +40,10 @@ export default defineComponent({
 <style lang="scss" scoped>
   @use '@/css/styles';
 
-  code {
+  div.code-block {
     color: styles.$default-text-color;
-    font-size: 1.2rem;
-    font-family: 'Droid Sans Mono', 'Consolas', monospace;
-    font-size: 1em;
+    background-color: styles.$background-color;
+
     line-height: 1.5em;
 
     & :is(span, div) {
