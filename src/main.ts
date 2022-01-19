@@ -1,7 +1,13 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import vuetify from './plugins/vuetify';
+import { loadFonts } from './plugins/webfontloader';
+
 import TSLiteral from './components/TSLiteral.vue';
 
-const app = createApp(App);
-app.component('TSLiteral', TSLiteral);
-app.mount('#app');
+loadFonts();
+
+createApp(App)
+  .use(vuetify)
+  .component('TSLiteral', TSLiteral)
+  .mount('#app');

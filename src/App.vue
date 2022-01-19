@@ -1,5 +1,9 @@
 <template>
-  <TSCode />
+  <v-app>
+    <v-main>
+      <TSCode />
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -13,11 +17,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss">
-  @use '@/css/styles';
-
-  body {
-    background-color: styles.$background-color;
-  }
-</style>

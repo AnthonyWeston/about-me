@@ -22,7 +22,6 @@ export default defineComponent({
   data() {
     return {
       value: {
-      // },
         name: 'Anthony',
         emptyArray: [],
         shortArray: [true, false],
@@ -40,9 +39,12 @@ export default defineComponent({
 <style lang="scss" scoped>
   @use '@/css/styles';
 
+  div.code-block:deep * {
+    opacity: 1.0;
+  }
+
   div.code-block {
     color: styles.$default-text-color;
-    background-color: styles.$background-color;
 
     line-height: 1.5em;
 
