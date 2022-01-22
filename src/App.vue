@@ -1,19 +1,24 @@
 <template>
   <v-app>
+    <v-navigation-drawer app />
+    <v-app-bar app />
     <v-main>
-      <TSCode />
+      <v-container>
+        <AboutMe />
+      </v-container>
     </v-main>
+    <v-footer app />
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TSCode from '@/components/TSCode.vue';
+import AboutMe from '@/components/AboutMe.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    TSCode,
+    AboutMe,
   },
 });
 </script>
