@@ -75,7 +75,7 @@ export default defineComponent({
   }
 
   .object-lines {
-    margin: 0 2em;
+    margin: 0 2ch;
     display: flow-root;
 
     &.inline {
@@ -84,10 +84,10 @@ export default defineComponent({
 
       .object-content {
         display: inline;
-        margin-left: 1em;
+        margin-left: 1ch;
 
         &:last-of-type {
-          margin-right: 1em;
+          margin-right: 1ch;
         }
       }
     }
