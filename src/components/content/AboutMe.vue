@@ -19,8 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TSCode from '@/components/TSCode.vue';
-import VTabs from '@/components/VTabs.vue';
+import TSCode from '@/components/code/TSCode.vue';
+import VTabs from '@/components/ui/VTabs.vue';
 
 export default defineComponent({
   name: 'AboutMe',

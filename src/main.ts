@@ -3,7 +3,7 @@ import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import { loadFonts } from './plugins/webfontloader';
 
-import TSLiteral from './components/TSLiteral.vue';
+import TSLiteral from './components/code/TSLiteral.vue';
 
 loadFonts();
 
