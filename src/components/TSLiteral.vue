@@ -24,6 +24,7 @@ export default defineComponent({
       default: undefined,
     },
     depth: {
+      type: Number,
       required: false,
       default: undefined,
     },
