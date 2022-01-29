@@ -1,7 +1,5 @@
 <template>
   <v-app>
-    <v-navigation-drawer app />
-    <v-app-bar app />
     <v-main>
       <v-container>
         <AboutMe />

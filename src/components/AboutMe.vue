@@ -5,7 +5,7 @@
     prepend-avatar="rainbow-black-mage.png"
   >
     <v-tabs
-      :tabs="tabs"
+      v-model="tabs"
     >
       <template #default="{ component, props }">
         <component
@@ -32,7 +32,16 @@ export default defineComponent({
     return {
       tabs: [
         { name: 'about-me.ts', component: 'TSCode', props: {} },
-        { name: 'test.txt', component: 'TSLiteral', props: {} },
+        { name: 'test1.txt', component: 'TSLiteral', props: { value: 'test1' } },
+        { name: 'test2.txt', component: 'TSLiteral', props: { value: 'test2' } },
+        { name: 'test3.txt', component: 'TSLiteral', props: { value: 'test3' } },
+        { name: 'test4.txt', component: 'TSLiteral', props: { value: 'test4' } },
+        { name: 'test5.txt', component: 'TSLiteral', props: { value: 'test5' } },
+        { name: 'test6.txt', component: 'TSLiteral', props: { value: 'test6' } },
+        { name: 'test7.txt', component: 'TSLiteral', props: { value: 'test7' } },
+        { name: 'test8.txt', component: 'TSLiteral', props: { value: 'test8' } },
+        { name: 'test9.txt', component: 'TSLiteral', props: { value: 'test9' } },
+        { name: 'test10.txt', component: 'TSLiteral', props: { value: 'test10' } },
       ],
     };
   },
