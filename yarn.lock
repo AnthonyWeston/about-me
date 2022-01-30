@@ -1479,6 +1479,11 @@
     webpack "^5.54.0"
     yorkie "^2.0.0"
 
+"@vue/cli-plugin-vuex@^5.0.0-rc.1":
+  version "5.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-vuex/-/cli-plugin-vuex-5.0.0-rc.1.tgz#2f4f04ae831ebca688acea5531658d1236baed23"
+  integrity sha512-ShfPIvuD+AFUtUcTw5okLUnBy8o4NrC0ICPpD7z+KG4gbfWzZMmT2TAkjqO9pp21cI+bYzigsBZ/FoXiU5+h7Q==
+
 "@vue/cli-plugin-vuex@^5.0.0-rc.2":
   version "5.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/@vue/cli-plugin-vuex/-/cli-plugin-vuex-5.0.0-rc.2.tgz#998939d9edc55149a66adda41e035de985d13ef4"
@@ -1622,6 +1627,11 @@
     vue-template-es2015-compiler "^1.9.0"
   optionalDependencies:
     prettier "^1.18.2 || ^2.0.0"
+
+"@vue/devtools-api@^6.0.0-beta.11":
+  version "6.0.0-beta.21.1"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.21.1.tgz#f1410f53c42aa67fa3b01ca7bdba891f69d7bc97"
+  integrity sha512-FqC4s3pm35qGVeXRGOjTsRzlkJjrBLriDS9YXbflHLsfA9FrcKzIyWnLXoNm+/7930E8rRakXuAc2QkC50swAw==
 
 "@vue/eslint-config-airbnb@^6.0.0":
   version "6.0.0"
@@ -6581,6 +6591,13 @@ vuetify@^3.0.0-alpha.12:
   version "3.0.0-alpha.12"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.0.0-alpha.12.tgz#c781ebf16a9bb89dd8dfd27c1848efd534545336"
   integrity sha512-F9TwV3Xk6J/bSH422kATrKeIiumGRkzGJPsvM0/8vPwYF0HWh7dHRhhYsIKkfhl5UJl/LYdeGNm1L8+jtldA0w==
+
+vuex@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-4.0.2.tgz#f896dbd5bf2a0e963f00c67e9b610de749ccacc9"
+  integrity sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==
+  dependencies:
+    "@vue/devtools-api" "^6.0.0-beta.11"
 
 watchpack@^2.3.1:
   version "2.3.1"

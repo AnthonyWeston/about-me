@@ -2,13 +2,13 @@
   <v-card>
     <v-container>
       <v-item-group
-        v-model="tabIndex"
+        v-model="selectedTabIndex"
         mandatory
         selected-class="custom-selected-tab"
         class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden"
       >
         <v-item
-          v-for="(tab, index) in modelValue"
+          v-for="(tab, index) in tabs"
           :key="index"
           v-slot="{ selectedClass, toggle }"
         >
@@ -25,7 +25,7 @@
               class="text-grey align-self-start ml-n3 mt-1 mr-1 elevation-12"
               icon="mdi-close"
               size="x-small"
-              @click.stop="close(index)"
+              @click.stop="closeTab(index)"
             />
           </v-btn>
         </v-item>
@@ -47,39 +47,33 @@
  */
 
 import {
-  computed, defineComponent, PropType, ref,
+  computed, ComputedRef, defineComponent, ref,
 } from 'vue';
-
-interface TabSpec {
-  name: string;
-  component: string;
-  props?: Record<string, unknown>;
-}
+import { useStore } from 'vuex';
+import { key } from '@/store';
+import { TabSpec } from './tab-spec';
 
 export default defineComponent({
-  props: {
-    modelValue: {
-      type: Array as PropType<Array<TabSpec>>,
-      default: () => [],
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props, context) {
+  setup() {
+    const store = useStore(key);
+    const tabs: ComputedRef<TabSpec[]> = computed(() => store.state.tabs);
+
     const selectedTabIndex = ref(0);
-    const selectedTab = computed(() => props.modelValue?.[selectedTabIndex.value] ?? {});
+    const selectedTab = computed(() => tabs.value[selectedTabIndex.value]);
 
-    const close = (index: number) => {
-      const newTabs = [...props.modelValue];
-      newTabs.splice(index, 1);
-      if (index < selectedTabIndex.value || selectedTabIndex.value === newTabs.length) selectedTabIndex.value -= 1;
+    const closeTab = (index: number) => {
+      store.commit('closeTab', index);
 
-      context.emit('update:modelValue', newTabs);
+      if (index < selectedTabIndex.value || selectedTabIndex.value === tabs.value.length) {
+        selectedTabIndex.value -= 1;
+      }
     };
 
     return {
-      tabIndex: selectedTabIndex,
+      tabs,
+      selectedTabIndex,
       selectedTab,
-      close,
+      closeTab,
     };
   },
 });
