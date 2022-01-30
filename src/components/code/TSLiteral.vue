@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { ContentLink } from '@/components/code/content-link';
 import TSObject from './TSObject.vue';
 import TSPrimitive from './TSPrimitive.vue';
 
@@ -19,7 +20,7 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: [String, Number, Boolean, Object, Array],
+      type: [String, Number, Boolean, Object, Array, ContentLink],
       required: false,
       default: undefined,
     },
@@ -33,6 +34,8 @@ export default defineComponent({
     componentType(): string {
       if (this.isPrimitive) {
         return 'TSPrimitive';
+      } else if (this.value instanceof ContentLink) {
+        return 'TSContentLink';
       } else {
         return 'TSObject';
       }

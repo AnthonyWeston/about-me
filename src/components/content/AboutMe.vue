@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import TSCode from '@/components/code/TSCode.vue';
 import VTabs from '@/components/ui/VTabs.vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'AboutMe',

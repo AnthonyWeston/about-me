@@ -1,15 +1,20 @@
 <template>
-  <span :class="primitiveClass">{{ displayValue }}</span>
+  <span :class="primitiveClass">
+    <span v-if="typeof value === 'string'">'</span>
+    <span class="primitive-value">{{ displayValue }}</span>
+    <span v-if="typeof value === 'string'">'</span>
+  </span>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import type { Primitive } from './literal-types';
 
 export default defineComponent({
   name: 'TSPrimitive',
   props: {
     value: {
-      type: [String, Number, Boolean],
+      type: [String, Number, Boolean] as PropType<Primitive>,
       required: false,
       default: undefined,
       validator(value): boolean {
@@ -19,11 +24,7 @@ export default defineComponent({
   },
   computed: {
     displayValue(): string {
-      if (typeof this.value === 'string') {
-        return `'${String(this.value)}'`;
-      } else {
-        return String(this.value);
-      }
+      return String(this.value);
     },
     primitiveClass(): string {
       if (this.value === null || ['undefined', 'boolean'].includes(typeof this.value)) {

@@ -53,7 +53,7 @@
  */
 
 import {
-  computed, ComputedRef, defineComponent, ref,
+  computed, ComputedRef, defineComponent,
 } from 'vue';
 import { useStore } from 'vuex';
 import { key } from '@/store';
@@ -62,17 +62,13 @@ import { TabSpec } from './tab-spec';
 export default defineComponent({
   setup() {
     const store = useStore(key);
-    const tabs: ComputedRef<TabSpec[]> = computed(() => store.state.tabs);
 
-    const selectedTabIndex = ref(0);
+    const tabs: ComputedRef<TabSpec[]> = computed(() => store.state.tabs);
+    const selectedTabIndex = computed(() => store.state.selectedTabIndex);
     const selectedTab = computed(() => tabs.value[selectedTabIndex.value]);
 
     const closeTab = (index: number) => {
       store.commit('closeTab', index);
-
-      if (index < selectedTabIndex.value || selectedTabIndex.value === tabs.value.length) {
-        selectedTabIndex.value -= 1;
-      }
     };
 
     return {
