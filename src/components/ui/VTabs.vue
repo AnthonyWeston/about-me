@@ -20,7 +20,13 @@
           >
             <v-container class="ma-1">{{ tab.name }}</v-container>
             <v-icon
-              v-if="index > 0"
+              v-if="index === 0"
+              class="disabled text-grey align-self-start ml-n3 mt-1 mr-1 elevation-12"
+              icon="mdi-pin"
+              size="x-small"
+            />
+            <v-icon
+              v-else
               v-ripple
               class="text-grey align-self-start ml-n3 mt-1 mr-1 elevation-12"
               icon="mdi-close"
@@ -93,7 +99,7 @@ export default defineComponent({
     font-weight: unset;
   }
 
-  .v-icon:hover {
+  .v-icon:not(.disabled):hover {
     color: #2196F3 !important;
   }
 </style>
