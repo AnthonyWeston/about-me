@@ -2,38 +2,23 @@
   <v-card>
     <v-container>
       <v-item-group
-        v-model="selectedTabIndex"
+        :model-value="selectedTabIndex"
         mandatory
-        selected-class="custom-selected-tab"
+        selected-class="selected-tab"
         class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden"
       >
         <v-item
           v-for="(tab, index) in tabs"
           :key="index"
-          v-slot="{ selectedClass, toggle }"
+          v-slot="{ selectedClass }"
         >
-          <v-btn
-            :class="[selectedClass, 'text-subtitle-1', 'pa-0']"
-            :ripple="false"
-            rounded="0"
-            @click="toggle"
-          >
-            <v-container class="ma-1">{{ tab.name }}</v-container>
-            <v-icon
-              v-if="index === 0"
-              class="disabled text-grey align-self-start ml-n3 mt-1 mr-1 elevation-12"
-              icon="mdi-pin"
-              size="x-small"
-            />
-            <v-icon
-              v-else
-              v-ripple
-              class="text-grey align-self-start ml-n3 mt-1 mr-1 elevation-12"
-              icon="mdi-close"
-              size="x-small"
-              @click.stop="closeTab(index)"
-            />
-          </v-btn>
+          <VTab
+            :class="selectedClass"
+            :name="tab.name"
+            :pinned="index === 0"
+            @click="selectTab(index)"
+            @close="closeTab(index)"
+          />
         </v-item>
       </v-item-group>
     </v-container>
@@ -58,14 +43,22 @@ import {
 import { useStore } from 'vuex';
 import { key } from '@/store';
 import { TabSpec } from './tab-spec';
+import VTab from './VTab.vue';
 
 export default defineComponent({
+  components: {
+    VTab,
+  },
   setup() {
     const store = useStore(key);
 
     const tabs: ComputedRef<TabSpec[]> = computed(() => store.state.tabs);
     const selectedTabIndex = computed(() => store.state.selectedTabIndex);
     const selectedTab = computed(() => tabs.value[selectedTabIndex.value]);
+
+    const selectTab = (index: number) => {
+      store.commit('selectTab', index);
+    };
 
     const closeTab = (index: number) => {
       store.commit('closeTab', index);
@@ -75,6 +68,7 @@ export default defineComponent({
       tabs,
       selectedTabIndex,
       selectedTab,
+      selectTab,
       closeTab,
     };
   },
@@ -86,16 +80,7 @@ export default defineComponent({
     scrollbar-width: 1em;
   }
 
-  .custom-selected-tab {
+  .selected-tab {
     background-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .v-btn {
-    text-transform: lowercase;
-    font-weight: unset;
-  }
-
-  .v-icon:not(.disabled):hover {
-    color: #2196F3 !important;
   }
 </style>

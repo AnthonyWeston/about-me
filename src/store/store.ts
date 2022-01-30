@@ -26,6 +26,9 @@ export const store = createStore<State>({
       state.tabs.push(tab);
       state.selectedTabIndex = state.tabs.length - 1;
     },
+    selectTab(state, index) {
+      state.selectedTabIndex = index;
+    },
     closeTab(state, index) {
       state.tabs.splice(index, 1);
 
