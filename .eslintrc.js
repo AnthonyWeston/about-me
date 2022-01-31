@@ -17,6 +17,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-else-return': 'off',
+    'no-underscore-dangle': 'off',
     'vue/singleline-html-element-content-newline': ['off'],
   },
 };

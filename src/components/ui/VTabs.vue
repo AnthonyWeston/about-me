@@ -1,26 +1,17 @@
 <template>
   <v-card>
-    <v-container>
-      <v-item-group
-        :model-value="selectedTabIndex"
-        mandatory
-        selected-class="selected-tab"
-        class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden"
-      >
-        <v-item
-          v-for="(tab, index) in tabs"
-          :key="index"
-          v-slot="{ selectedClass }"
-        >
-          <VTab
-            :class="selectedClass"
-            :name="tab.name"
-            :pinned="index === 0"
-            @click="selectTab(index)"
-            @close="closeTab(index)"
-          />
-        </v-item>
-      </v-item-group>
+    <v-container
+      class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden"
+    >
+      <VTab
+        v-for="(tab, index) in tabs"
+        :key="tab.id"
+        :class="selectedClass(index)"
+        :name="tab.name"
+        :pinned="index === 0"
+        @click="selectTab(index)"
+        @close="closeTab(index)"
+      />
     </v-container>
     <v-container>
       <slot
@@ -56,6 +47,8 @@ export default defineComponent({
     const selectedTabIndex = computed(() => store.state.selectedTabIndex);
     const selectedTab = computed(() => tabs.value[selectedTabIndex.value]);
 
+    const selectedClass = (index: number) => (index === selectedTabIndex.value ? 'selected-tab' : '');
+
     const selectTab = (index: number) => {
       store.commit('selectTab', index);
     };
@@ -68,6 +61,7 @@ export default defineComponent({
       tabs,
       selectedTabIndex,
       selectedTab,
+      selectedClass,
       selectTab,
       closeTab,
     };

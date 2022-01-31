@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { TabSpec } from '../ui/tab-spec';
 import { ContentLink } from './content-link';
 import TSLiteral from './TSLiteral.vue';
 
@@ -23,7 +24,7 @@ export default defineComponent({
   data() {
     return {
       value: {
-        name: new ContentLink('Anthony', { name: 'greeting.md', component: 'TSLiteral', props: { value: 'Hi, my name is Anthony!' } }),
+        name: new ContentLink('Anthony', new TabSpec('greeting.md', 'TSLiteral', { value: 'Hi, my name is Anthony!' })),
         emptyArray: [],
         shortArray: [true, false],
         longArray: [1, '2', { 3: 4 }],
