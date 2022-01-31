@@ -5,7 +5,6 @@
         <AboutMe />
       </v-container>
     </v-main>
-    <v-footer app />
   </v-app>
 </template>
 
@@ -20,3 +19,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+  :root {
+    color-scheme: dark;
+  }
+</style>
