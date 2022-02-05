@@ -27,10 +27,6 @@ export default defineComponent({
 <style lang="scss" scoped>
   @use '@/css/styles';
 
-  div.code-block:deep * {
-    opacity: 1.0;
-  }
-
   div.code-block {
     color: styles.$default-text-color;
 
