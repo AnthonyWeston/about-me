@@ -9,10 +9,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { ContentLink } from '@/components/code/content-link';
-import { useStore } from 'vuex';
 import { key } from '@/store';
+import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
+import { TabSpec } from '../ui/tab-spec';
 import TSPrimitive from './TSPrimitive.vue';
 
 export default defineComponent({
@@ -28,7 +29,7 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore(key);
-    const addTab = () => store.commit('addTab', props.value.content);
+    const addTab = () => store.commit('addTab', TabSpec.copyOf(props.value.content));
     return { addTab };
   },
 });

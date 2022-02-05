@@ -1,5 +1,11 @@
+import { cloneDeep } from 'lodash-es';
+
 export class TabSpec {
   private static _count = 0;
+
+  static copyOf(tab: TabSpec) {
+    return new TabSpec(tab.name, tab.component, cloneDeep(tab.props));
+  }
 
   name: string;
 
