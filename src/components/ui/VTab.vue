@@ -2,7 +2,7 @@
   <transition name="slide">
     <v-btn
       v-if="show"
-      :class="['text-subtitle-1', 'pa-0']"
+      :class="['v-tab','text-subtitle-1', 'pa-0', 'rounded-t-lg']"
       :ripple="false"
       rounded="0"
     >
@@ -61,24 +61,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .v-btn {
+  .v-tab {
     text-transform: lowercase;
     font-weight: unset;
     transform-origin: left;
-  }
-
-  .v-icon:not(.pinned):hover {
-    color: #2196F3 !important;
-  }
-
-  $leave-duration: 0.15s;
-  $enter-duration: $leave-duration / 2;
-
-  .slide-enter-active {
-    transition: transform $enter-duration ease-out;
-  }
-  .slide-leave-active {
-    transition: transform $leave-duration ease-in;
+    transition: all 0.15s ease;
   }
 
   .slide-enter-to, .slide-leave-from {
@@ -87,5 +74,9 @@ export default defineComponent({
 
   .slide-enter-from, .slide-leave-to {
     transform: scale(0, 0);
+  }
+
+  .v-icon:not(.pinned):hover {
+    color: #2196F3 !important;
   }
 </style>
