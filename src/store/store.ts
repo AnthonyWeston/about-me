@@ -2,6 +2,7 @@ import type { InjectionKey } from 'vue';
 import { createStore } from 'vuex';
 import type { Store } from 'vuex';
 import { TabSpec } from '@/components/ui/tab-spec';
+import { ContentLink } from '@/components/code/content-link';
 
 export interface State {
   tabs: TabSpec[],
@@ -13,7 +14,17 @@ export const key: InjectionKey<Store<State>> = Symbol('Vuex injection key');
 export const store = createStore<State>({
   state: {
     tabs: [
-      new TabSpec('about-me.ts', 'TSCode'),
+      new TabSpec('about-me.ts', 'TSCode', {
+        value: {
+          name: new ContentLink('Anthony', new TabSpec('greeting.md', 'TSLiteral', { value: 'Hi, my name is Anthony!' })),
+          emptyArray: [],
+          shortArray: [true, false],
+          longArray: [1, '2', { 3: 4 }],
+          emptyObject: {},
+          smallObject: { a: null, b: undefined },
+          object: { x: 'y', w: 'z', a: 'b' },
+        },
+      }),
       new TabSpec('test1.txt', 'TSLiteral', { value: 'test1' }),
       new TabSpec('test2.txt', 'TSLiteral', { value: 'test2' }),
       new TabSpec('test3.txt', 'TSLiteral', { value: 'test3' }),
