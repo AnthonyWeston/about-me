@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-container
       class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden"
     >

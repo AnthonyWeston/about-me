@@ -1,8 +1,9 @@
 <template>
   <v-app>
     <v-main>
-      <v-container>
+      <v-container class="full-height">
         <v-card
+          class="full-height"
           theme="dark"
           title="About Me"
           prepend-avatar="rainbow-black-mage.png"
@@ -38,5 +39,9 @@ export default defineComponent({
 <style>
   :root {
     color-scheme: dark;
+  }
+
+  .full-height {
+    height: 100%;
   }
 </style>
