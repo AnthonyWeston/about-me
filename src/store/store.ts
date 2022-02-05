@@ -17,12 +17,6 @@ export const store = createStore<State>({
       aboutMe,
       new TabSpec('test1.txt', 'TSLiteral', { value: 'test1' }),
       new TabSpec('test2.txt', 'TSLiteral', { value: 'test2' }),
-      new TabSpec('test3.txt', 'TSLiteral', { value: 'test3' }),
-      new TabSpec('test4.txt', 'TSLiteral', { value: 'test4' }),
-      new TabSpec('test5.txt', 'TSLiteral', { value: 'test5' }),
-      new TabSpec('test6.txt', 'TSLiteral', { value: 'test6' }),
-      new TabSpec('test7.txt', 'TSLiteral', { value: 'test7' }),
-      new TabSpec('test8.txt', 'TSLiteral', { value: 'test8' }),
     ],
     selectedTabIndex: 0,
   },
@@ -31,8 +25,8 @@ export const store = createStore<State>({
   mutations: {
     addTab(state, tab) {
       if (tab instanceof TabSpec) {
-        const newLength = state.tabs.push(tab);
-        state.selectedTabIndex = newLength - 1;
+        state.tabs.splice(state.selectedTabIndex + 1, 0, tab);
+        state.selectedTabIndex += 1;
       } else {
         throw new TypeError(`Invalid tab (type ${tab.constructor.name}, expected TabSpec)`);
       }
