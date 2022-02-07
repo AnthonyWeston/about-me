@@ -1,14 +1,17 @@
 <template>
   <component
     :is="componentType"
-    :value="value"
+    :value="computedValue"
     :depth="depth"
   />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { ContentLink } from '@/components/code/content-link';
+import {
+  computed, defineComponent,
+} from 'vue';
+import { Primitive } from './literal-types';
 import TSObject from './TSObject.vue';
 import TSPrimitive from './TSPrimitive.vue';
 
@@ -20,7 +23,7 @@ export default defineComponent({
   },
   props: {
     value: {
-      type: [String, Number, Boolean, Object, Array, ContentLink],
+      type: [String, Number, Boolean, Object, Array, ContentLink, Function],
       required: false,
       default: undefined,
     },
@@ -30,19 +33,26 @@ export default defineComponent({
       default: undefined,
     },
   },
-  computed: {
-    componentType(): string {
-      if (this.isPrimitive) {
+  setup(props) {
+    const isPrimitive = (value: unknown): value is Primitive => value === null
+      || ['undefined', 'string', 'number', 'boolean'].includes(typeof value);
+    const computedValue = computed(() => (props.value instanceof Function ? props.value.call(null) : props.value));
+
+    const componentType = computed(() => {
+      const { value } = computedValue;
+      if (isPrimitive(value)) {
         return 'TSPrimitive';
-      } else if (this.value instanceof ContentLink) {
+      } else if (value instanceof ContentLink) {
         return 'TSContentLink';
       } else {
         return 'TSObject';
       }
-    },
-    isPrimitive(): boolean {
-      return this.value === null || ['undefined', 'string', 'number', 'boolean'].includes(typeof this.value);
-    },
+    });
+
+    return {
+      componentType,
+      computedValue,
+    };
   },
 });
 </script>

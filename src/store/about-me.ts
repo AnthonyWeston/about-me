@@ -1,14 +1,51 @@
-import { ContentLink } from '@/components/code/content-link';
 import { TabSpec } from '@/components/ui/tab-spec';
+import { cloneDeepWith } from 'lodash-es';
 
-export default new TabSpec('about-me.ts', 'TSCode', {
-  value: {
-    name: new ContentLink('Anthony', new TabSpec('greeting.md', 'TSLiteral', { value: 'Hi, my name is Anthony!' })),
-    emptyArray: [],
-    shortArray: [true, false],
-    longArray: [1, '2', { 3: 4 }],
-    emptyObject: {},
-    smallObject: { a: null, b: undefined },
-    object: { x: 'y', w: 'z', a: 'b' },
+const deepCopy = (x: unknown): unknown =>
+  cloneDeepWith(x, (x) => (x instanceof Function ? x : undefined));
+
+const yearsOfExperience = (): number => {
+  const start = new Date(2018, 4);
+  const today = new Date();
+  const months = (today.getFullYear() - start.getFullYear()) * 12 + today.getMonth() - start.getMonth();
+
+  return Math.round(months / 3) * 0.25;
+};
+
+export const details = {
+  name: 'Anthony Weston',
+  occupation: 'Full-stack web developer',
+  pronouns: ['He', 'Him', 'His'],
+  yearsOfExperience,
+  askMeAbout: [],
+  featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
+  currentProjects: ['About Me'],
+  goals: ['Tech lead'],
+  learning: {
+    current: ['Property-based testing', 'Java 17'],
+    interests: [
+      'Code Quality',
+      'Cross-platform development',
+      'Test Automation',
+      'Domain Driven Design',
+      'Microservices',
+      'Event-driven design',
+    ],
   },
-});
+  technologies: {
+    languages: ['Java', 'JavaScript', 'TypeScript', 'Bash', 'Python'],
+    backend: ['Spring Boot MVC', 'Django'],
+    frontend: ['Vue', 'Angular'],
+    mobile: ['Ionic'],
+    testing: ['JUnit 5', 'Jest'],
+    tools: ['Babel/Webpack', 'Maven'],
+    database: ['PostgresQL', 'SQL Server', 'Oracle'],
+    cloud: ['AWS'],
+    devOps: ['GitLab CI', 'GitHub CI', 'Jenkins', 'SonarQube'],
+    misc: ['git', 'Docker', 'NginX', 'Linux', 'ProseMirror', 'Jackson'],
+  },
+  architecture: [],
+  otherInterests: ['Coffee', 'Board Games', 'Tabletop RPGs'],
+};
+
+export default new TabSpec('about-me.ts', 'TSCode', { value: details });

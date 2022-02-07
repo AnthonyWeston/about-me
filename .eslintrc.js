@@ -12,6 +12,7 @@ module.exports = {
     ecmaVersion: 2020,
   },
   rules: {
+    'implicit-arrow-linebreak': 'off',
     'import/prefer-default-export': 'off',
     'max-len': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

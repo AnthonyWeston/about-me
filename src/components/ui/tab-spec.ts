@@ -1,10 +1,13 @@
-import { cloneDeep } from 'lodash-es';
+import { cloneDeepWith } from 'lodash-es';
+
+const deepCopy = (value: unknown): any =>
+  cloneDeepWith(value, (x) => (x instanceof Function ? x : undefined));
 
 export class TabSpec {
   private static _count = 0;
 
   static copyOf(tab: TabSpec) {
-    return new TabSpec(tab.name, tab.component, cloneDeep(tab.props));
+    return new TabSpec(tab.name, tab.component, deepCopy(tab.props));
   }
 
   name: string;
