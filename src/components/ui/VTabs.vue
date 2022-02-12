@@ -13,7 +13,7 @@
         @close="closeTab(index)"
       />
     </v-container>
-    <v-container>
+    <v-container class="overflow-y-auto">
       <slot
         :component="selectedTab.component"
         :props="selectedTab.props"
