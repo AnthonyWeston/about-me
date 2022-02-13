@@ -1,23 +1,23 @@
 <template>
-  <v-app>
-    <v-main>
-      <v-card
-        theme="dark"
-        title="About Me"
-        prepend-avatar="rainbow-black-mage.png"
-        class="ma-4"
-      >
-        <VTabs>
-          <template #default="{ component, props }">
-            <component
-              :is="component"
-              v-bind="props"
-            />
-          </template>
-        </VTabs>
-      </v-card>
+  <v-app full-height>
+    <v-app-bar app>
+      <v-avatar image="rainbow-black-mage.png" />
+      <v-app-bar-title>About Me</v-app-bar-title>
+    </v-app-bar>
+    <v-main class="ma-4">
+      <VTabs style="height: 100%;">
+        <template #default="{ component, props }">
+          <component
+            :is="component"
+            v-bind="props"
+          />
+        </template>
+      </VTabs>
     </v-main>
-    <v-footer app>
+    <v-footer
+      app
+      class="flex-grow-0"
+    >
       <v-container
         class="d-flex flex-column align-center"
       >
@@ -50,12 +50,19 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
   :root {
     color-scheme: dark;
+    background-color: black;
+    overflow: hidden;
   }
 
-  .full-height {
-    height: 100%;
+  main {
+    min-height: 0;
+    flex: content !important;
+  }
+
+  #app, .v-application, .v-application__wrap {
+    height: 100vh;
   }
 </style>

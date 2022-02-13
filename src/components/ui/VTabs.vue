@@ -1,8 +1,6 @@
 <template>
-  <v-card flat>
-    <v-container
-      class="d-flex flex-nowrap overflow-x-auto overflow-y-hidden"
-    >
+  <v-sheet class="d-flex flex-column">
+    <div class="d-flex flex-nowrap flex-shrink-0 overflow-x-auto overflow-y-hidden">
       <VTab
         v-for="(tab, index) in tabs"
         :key="tab.id"
@@ -12,14 +10,14 @@
         @click="selectTab(index)"
         @close="closeTab(index)"
       />
-    </v-container>
-    <v-container class="overflow-y-auto">
+    </div>
+    <v-sheet class="overflow-y-auto ma-2">
       <slot
         :component="selectedTab.component"
         :props="selectedTab.props"
       />
-    </v-container>
-  </v-card>
+    </v-sheet>
+  </v-sheet>
 </template>
 
 <script lang="ts">
