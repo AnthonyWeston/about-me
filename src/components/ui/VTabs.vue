@@ -1,17 +1,17 @@
 <template>
-  <v-sheet class="d-flex flex-column">
-    <div class="d-flex flex-nowrap flex-shrink-0 overflow-x-auto overflow-y-hidden">
+  <v-sheet class="v-tabs d-flex flex-column">
+    <div class="tab-bar d-flex flex-nowrap flex-shrink-0 overflow-x-auto overflow-y-hidden">
       <VTab
         v-for="(tab, index) in tabs"
         :key="tab.id"
-        :class="selectedClass(index)"
+        :class="tabClasses(index)"
         :name="tab.name"
         :pinned="index === 0"
         @click="selectTab(index)"
         @close="closeTab(index)"
       />
     </div>
-    <v-sheet class="overflow-y-auto ma-2">
+    <v-sheet class="overflow-y-auto ma-4">
       <slot
         :component="selectedTab.component"
         :props="selectedTab.props"
@@ -45,7 +45,9 @@ export default defineComponent({
     const selectedTabIndex = computed(() => store.state.selectedTabIndex);
     const selectedTab = computed(() => tabs.value[selectedTabIndex.value]);
 
-    const selectedClass = (index: number) => (index === selectedTabIndex.value ? 'selected-tab' : '');
+    const tabClasses = (index: number) => ({
+      'active-tab': index === selectedTabIndex.value,
+    });
 
     const selectTab = (index: number) => {
       store.commit('selectTab', index);
@@ -57,9 +59,8 @@ export default defineComponent({
 
     return {
       tabs,
-      selectedTabIndex,
       selectedTab,
-      selectedClass,
+      tabClasses,
       selectTab,
       closeTab,
     };
@@ -72,7 +73,17 @@ export default defineComponent({
     scrollbar-width: 1em;
   }
 
-  .selected-tab {
-    background-color: rgba(255, 255, 255, 0.1);
+  .tab-bar {
+    background-color: rgb(0, 0, 0, .3) !important;
+
+    > * {
+      background-color: rgb(33, 33, 33) !important;
+    }
+
+    > :not(.active-tab) {
+      background-color: rgb(42, 42, 42) !important;
+      color: gray !important;
+    }
   }
+
 </style>
