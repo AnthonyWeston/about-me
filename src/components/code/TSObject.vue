@@ -1,21 +1,14 @@
 <template>
   <span :class="`depth-mod-${depth % 3}`">{{ openBracket }}</span>
-  <div :class="{ 'object-lines': true, inline }">
+  <div :class="{ 'object-lines': true, inline: !isSingleEntryPerLine }">
     <template
       v-for="(key, index) in Object.keys(value)"
       :key="key"
     >
-      <div
-        class="object-content"
-      >
-        <span
-          v-if="!Array.isArray(value)"
-          class="object-key"
-        >{{ `${key}:` }}&nbsp;</span>
-        <TSLiteral
-          :value="value[key]"
-          :depth="depth + 1"
-        /><template v-if="!(inline &&index === Object.keys(value).length - 1)">,</template>
+      <div class="object-content">
+        <span v-if="!Array.isArray(value)" class="object-key">{{ `${key}:` }}&nbsp;</span>
+        <TSLiteral :value="value[key]" :depth="depth + 1" />
+        <template v-if="isSingleEntryPerLine || index < Object.keys(value).length - 1">,</template>
       </div>
     </template>
   </div>
@@ -25,8 +18,10 @@
 <script lang="ts">
 
 import {
+  computed,
   defineComponent,
 } from 'vue';
+import { useDisplay } from 'vuetify';
 
 export default defineComponent({
   name: 'TSObject',
@@ -42,16 +37,52 @@ export default defineComponent({
       default: 0,
     },
   },
-  computed: {
-    inline() {
-      return Object.keys(this.value).length <= 2;
-    },
-    openBracket() {
-      return Array.isArray(this.value) ? '[' : '{';
-    },
-    closeBracket() {
-      return Array.isArray(this.value) ? ']' : '}';
-    },
+  setup(props) {
+    const openBracket = computed(() => (Array.isArray(props.value) ? '[' : '{'));
+    const closeBracket = computed(() => (Array.isArray(props.value) ? ']' : '}'));
+
+    const display = useDisplay();
+
+    const maxEntriesPerLine = computed((): number => {
+      if (display.lgAndUp.value) {
+        return 5;
+      } else if (display.smAndUp.value) {
+        return 3;
+      } else {
+        return 1;
+      }
+    });
+
+    const orderedBreakpoints = Object.entries(display.thresholds.value)
+      .sort(([bp1, threshold1], [bp2, threshold2]) => threshold1 as number - (threshold2 as number))
+      .map(([breakpoint, threshold]) => breakpoint);
+
+    const nextBreakpoint = (breakpoint: string) =>
+      orderedBreakpoints[Math.min(orderedBreakpoints.length - 1, orderedBreakpoints.indexOf(breakpoint) + 1)];
+
+    const isSingleEntryPerLine = computed((): boolean => {
+      const values = Object.values(props.value);
+
+      // Avoiding instanceof Object here because value could be a Function or a ContentLink
+      if (values.some((value) => value.constructor === Object || value.constructor === Array)) {
+        return true;
+      } else if (props.value instanceof Array) {
+        const breakpointWidth = display.thresholds.value[nextBreakpoint(display.name.value)];
+
+        const exceedsCharacterLimit = values.map((x) => String(x)).join().length * 16 > 1.5 * breakpointWidth;
+        return exceedsCharacterLimit || values.length > maxEntriesPerLine.value * 2;
+      } else {
+        return values.length > maxEntriesPerLine.value * 2;
+      }
+    });
+
+    return {
+      display,
+      openBracket,
+      closeBracket,
+      maxEntriesPerLine,
+      isSingleEntryPerLine,
+    };
   },
 });
 

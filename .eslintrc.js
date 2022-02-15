@@ -19,6 +19,14 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-else-return': 'off',
     'no-underscore-dangle': 'off',
+    'vue/max-attributes-per-line': ['error', {
+      singleline: {
+        max: 3,
+      },
+      multiline: {
+        max: 1,
+      },
+    }],
     'vue/singleline-html-element-content-newline': ['off'],
   },
 };
