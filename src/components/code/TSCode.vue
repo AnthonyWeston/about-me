@@ -37,6 +37,10 @@ export default defineComponent({
     }
   }
 
+  code {
+    display: block;
+  }
+
   .keyword {
     color: styles.$keyword-color;
   }

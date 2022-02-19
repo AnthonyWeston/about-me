@@ -42,7 +42,8 @@ export default defineComponent({
     @use '@/css/styles';
 
     .string-literal {
-      color: styles.$string-color
+      color: styles.$string-color;
+      white-space: nowrap;
     }
 
     .number-literal {

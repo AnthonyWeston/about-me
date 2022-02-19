@@ -9,6 +9,7 @@
         <span v-if="!Array.isArray(value)" class="object-key">{{ `${key}:` }}&nbsp;</span>
         <TSLiteral :value="value[key]" :depth="depth + 1" />
         <template v-if="isSingleEntryPerLine || index < Object.keys(value).length - 1">,</template>
+        <wbr>
       </div>
     </template>
   </div>
@@ -106,18 +107,23 @@ export default defineComponent({
   }
 
   .object-lines {
-    margin: 0 2ch;
-    display: flow-root;
+    &:not(.inline) {
+      margin-left: 2ch;
+    }
 
     &.inline {
-      margin: 0;
       display: inline;
 
-      .object-content {
+      > .object-content {
         display: inline;
         margin-left: 1ch;
+        margin-right: -1ch;
 
-        &:last-of-type {
+        &:not(:first-child) {
+          margin-left: 2ch
+        }
+
+        &:last-child {
           margin-right: 1ch;
         }
       }
