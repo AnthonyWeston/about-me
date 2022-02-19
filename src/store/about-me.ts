@@ -12,7 +12,7 @@ const yearsOfExperience = (): number => {
 export const details = {
   name: 'Anthony Weston',
   occupation: 'Full-stack web developer',
-  pronouns: ['He', new ContentLink('Him', new TabSpec('pronouns.md', 'VPronouns')), 'His'],
+  pronouns: new ContentLink(['He', 'Him', 'His'], new TabSpec('pronouns.md', 'VPronouns')),
   yearsOfExperience,
   askMeAbout: [],
   featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
