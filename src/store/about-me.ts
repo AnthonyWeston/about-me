@@ -1,8 +1,5 @@
+import { ContentLink } from '@/components/code/content-link';
 import { TabSpec } from '@/components/ui/tab-spec';
-import { cloneDeepWith } from 'lodash-es';
-
-const deepCopy = (x: unknown): unknown =>
-  cloneDeepWith(x, (x) => (x instanceof Function ? x : undefined));
 
 const yearsOfExperience = (): number => {
   const start = new Date(2018, 4);
@@ -15,7 +12,7 @@ const yearsOfExperience = (): number => {
 export const details = {
   name: 'Anthony Weston',
   occupation: 'Full-stack web developer',
-  pronouns: ['He', 'Him', 'His'],
+  pronouns: ['He', new ContentLink('Him', new TabSpec('pronouns.md', 'VPronouns')), 'His'],
   yearsOfExperience,
   askMeAbout: [],
   featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
