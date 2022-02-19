@@ -9,7 +9,6 @@
         <span v-if="!Array.isArray(value)" class="object-key">{{ `${key}:` }}&nbsp;</span>
         <TSLiteral :value="value[key]" :depth="depth + 1" />
         <template v-if="isSingleEntryPerLine || index < Object.keys(value).length - 1">,</template>
-        <wbr>
       </div>
     </template>
   </div>
@@ -69,9 +68,8 @@ export default defineComponent({
         return true;
       } else if (props.value instanceof Array) {
         const breakpointWidth = display.thresholds.value[nextBreakpoint(display.name.value)];
-
-        const exceedsCharacterLimit = values.map((x) => String(x)).join().length * 16 > 1.5 * breakpointWidth;
-        return exceedsCharacterLimit || values.length > maxEntriesPerLine.value * 2;
+        const characterLimit = breakpointWidth / 16;
+        return values.map((x) => String(x)).join().length > characterLimit;
       } else {
         return values.length > maxEntriesPerLine.value * 2;
       }
