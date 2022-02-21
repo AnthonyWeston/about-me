@@ -1,9 +1,11 @@
 <template>
-  <img
-    class="ma-2"
-    :alt="`Shields.io badge: ${dependency}@${version}`"
-    :src="url"
-  >
+  <a :href="`https://www.npmjs.com/package/${dependency}`">
+    <img
+      class="ma-2"
+      :alt="`Shields.io badge: ${dependency}@${version}`"
+      :src="url"
+    >
+  </a>
 </template>
 
 <script lang="ts">
