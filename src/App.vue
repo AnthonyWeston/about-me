@@ -65,4 +65,9 @@ export default defineComponent({
   #app, .v-application, .v-application__wrap {
     height: 100vh;
   }
+
+  section * {
+    padding: revert;
+    margin: revert;
+  }
 </style>
