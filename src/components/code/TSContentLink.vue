@@ -10,17 +10,12 @@
 
 <script lang="ts">
 import { ContentLink } from '@/components/code/content-link';
-import { key } from '@/store';
+import { useTabStore } from '@/store';
 import { defineComponent } from 'vue';
-import { useStore } from 'vuex';
 import { TabSpec } from '../ui/tab-spec';
-import TSPrimitive from './TSPrimitive.vue';
 
 export default defineComponent({
   name: 'TSContentLink',
-  components: {
-    TSPrimitive,
-  },
   props: {
     value: {
       type: ContentLink,
@@ -28,8 +23,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const store = useStore(key);
-    const addTab = () => store.commit('addTab', TabSpec.copyOf(props.value.content));
+    const store = useTabStore();
+    const addTab = () => store.addTab(TabSpec.copyOf(props.value.content));
     return { addTab };
   },
 });

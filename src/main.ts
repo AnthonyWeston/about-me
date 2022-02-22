@@ -1,18 +1,26 @@
 import { createApp } from 'vue';
-import VPronouns from '@/components/content/VPronouns.md';
+import { createPinia } from 'pinia';
 import App from './App.vue';
 import vuetify from './plugins/vuetify';
 import { loadFonts } from './plugins/webfontloader';
 
-import TSLiteral from './components/code/TSLiteral.vue';
-import { key, store } from './store/store';
-import TSContentLink from './components/code/TSContentLink.vue';
+const importComponents = require.context('.', true, /\.(md|vue)$/);
+
+const registerComponents = (app: ReturnType<typeof createApp>): void => {
+  importComponents.keys().forEach((filename) => {
+    const filenameNoExtension = filename.match(/(?<=\/)\w+(?=\.\w+)/)?.[0];
+    if (!filenameNoExtension) throw new RangeError(`Invalid component name ${filename}`);
+
+    const component = importComponents(filename);
+    app.component(filenameNoExtension, component.default || component);
+  });
+};
 
 loadFonts();
 
-createApp(App).use(store, key)
-  .use(vuetify)
-  .component('TSLiteral', TSLiteral)
-  .component('TSContentLink', TSContentLink)
-  .component('VPronouns', VPronouns)
-  .mount('#app');
+const app = createApp(App)
+  .use(createPinia())
+  .use(vuetify);
+
+registerComponents(app);
+app.mount('#app');

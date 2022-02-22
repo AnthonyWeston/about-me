@@ -1,1 +1,1 @@
-export { key, store } from './store';
+export * from './store';

@@ -25,7 +25,7 @@
         <div class="d-flex flex-wrap justify-center">
           <VShield dependency="typescript" />
           <VShield dependency="vue" />
-          <VShield dependency="vuex" />
+          <VShield dependency="pinia" />
           <VShield dependency="vuetify" />
           <VShield dependency="@vue/cli" />
         </div>

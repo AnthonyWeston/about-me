@@ -26,12 +26,9 @@
  * the tabs stuff in Vuetify 3 is in the prerelease yet.
  */
 
-import {
-  computed, ComputedRef, defineComponent,
-} from 'vue';
-import { useStore } from 'vuex';
-import { key } from '@/store';
-import { TabSpec } from './tab-spec';
+import { useTabStore } from '@/store';
+import { storeToRefs } from 'pinia';
+import { defineComponent } from 'vue';
 import VTab from './VTab.vue';
 
 export default defineComponent({
@@ -39,30 +36,17 @@ export default defineComponent({
     VTab,
   },
   setup() {
-    const store = useStore(key);
-
-    const tabs: ComputedRef<TabSpec[]> = computed(() => store.state.tabs);
-    const selectedTabIndex = computed(() => store.state.selectedTabIndex);
-    const selectedTab = computed(() => tabs.value[selectedTabIndex.value]);
+    const store = useTabStore();
 
     const tabClasses = (index: number) => ({
-      'active-tab': index === selectedTabIndex.value,
+      'active-tab': index === store.selectedTabIndex,
     });
 
-    const selectTab = (index: number) => {
-      store.commit('selectTab', index);
-    };
-
-    const closeTab = (index: number) => {
-      store.commit('closeTab', index);
-    };
-
     return {
-      tabs,
-      selectedTab,
+      selectTab: store.selectTab,
+      closeTab: store.closeTab,
+      ...storeToRefs(store),
       tabClasses,
-      selectTab,
-      closeTab,
     };
   },
 });
