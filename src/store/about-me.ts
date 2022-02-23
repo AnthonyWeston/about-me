@@ -13,7 +13,6 @@ export const details = {
   name: 'Anthony Weston',
   occupation: 'Full-stack web developer',
   pronouns: new ContentLink(['He', 'Him', 'His'], new TabSpec('pronouns.md', 'VPronouns')),
-  dependencies: new ContentLink('Click here!', new TabSpec('architecture.md', 'VArchitecture')),
   askMeAbout: [],
   featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
   currentProjects: ['About Me'],

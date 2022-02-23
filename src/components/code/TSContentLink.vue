@@ -1,10 +1,12 @@
 <template>
   <a>
-    <TSPrimitive
-      :value="value?.value"
-      class="link"
-      @click="addTab"
-    />
+    <slot :click="addTab">
+      <TSPrimitive
+        :value="value?.value"
+        class="link"
+        @click="addTab"
+      />
+    </slot>
   </a>
 </template>
 

@@ -1,11 +1,9 @@
 <template>
-  <a :href="`https://www.npmjs.com/package/${dependency}`">
-    <img
-      class="ma-2"
-      :alt="`Shields.io badge: ${dependency}@${version}`"
-      :src="url"
-    >
-  </a>
+  <img
+    class="ma-2"
+    :alt="`Shields.io badge: ${dependency}@${version}`"
+    :src="url"
+  >
 </template>
 
 <script lang="ts">
@@ -25,12 +23,12 @@ export default defineComponent({
       return this.dependency in devDependencies;
     },
     version(): string {
-      return { ...dependencies, ...devDependencies }[this.dependency];
+      return { ...dependencies, ...devDependencies }[this.dependency]
+        .replaceAll('-', '--')
+        .replaceAll('_', '__');
     },
     url(): string {
-      return this.isDevDependency
-        ? `https://img.shields.io/github/package-json/dependency-version/AnthonyWeston/about-me/dev/${this.dependency}`
-        : `https://img.shields.io/github/package-json/dependency-version/AnthonyWeston/about-me/${this.dependency}`;
+      return `https://img.shields.io/badge/${this.dependency}-${this.version}-blue`;
     },
   },
 });

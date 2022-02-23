@@ -14,39 +14,19 @@
         </template>
       </VTabs>
     </v-main>
-    <v-footer
-      app
-      class="flex-grow-0"
-    >
-      <v-container
-        class="d-flex flex-column align-center"
-      >
-        This project was developed using:
-        <div class="d-flex flex-wrap justify-center">
-          <VShield dependency="typescript" />
-          <VShield dependency="vue" />
-          <VShield dependency="pinia" />
-          <VShield dependency="vuetify" />
-          <VShield dependency="@vue/cli" />
-        </div>
-      </v-container>
+    <v-footer app class="flex-grow-0">
+      <VDependencyInfo />
     </v-footer>
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TSCode from '@/components/code/TSCode.vue';
-import VTabs from '@/components/ui/VTabs.vue';
-import VShield from '@/components/ui/VShield.vue';
+import VDependencyInfo from './components/content/VDependencyInfo.vue';
 
 export default defineComponent({
   name: 'App',
-  components: {
-    TSCode,
-    VTabs,
-    VShield,
-  },
+  components: { VDependencyInfo },
 });
 </script>
 
