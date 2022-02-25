@@ -14,7 +14,7 @@
         </template>
       </VTabs>
     </v-main>
-    <v-footer app class="flex-grow-0">
+    <v-footer app class="flex-grow-0 d-flex justify-center">
       <VDependencyInfo />
     </v-footer>
   </v-app>
