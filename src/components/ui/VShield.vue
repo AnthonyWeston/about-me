@@ -8,7 +8,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { dependencies, devDependencies } from '@/../package.json';
+import packageJson from '@/../package.json';
+
+const { dependencies, devDependencies } = packageJson;
 
 export default defineComponent({
   name: 'VShield',
