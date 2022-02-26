@@ -1,5 +1,6 @@
 import { ContentLink } from '@/components/code/content-link';
-import { TabSpec } from '@/components/ui/tab-spec';
+import { HoverSpec } from '@/components/content/hover-spec';
+import { TabSpec } from '@/components/content/tab-spec';
 
 const yearsOfExperience = (): number => {
   const start = new Date(2018, 4);
@@ -12,8 +13,8 @@ const yearsOfExperience = (): number => {
 export const details = {
   name: 'Anthony Weston',
   occupation: 'Full-stack web developer',
-  pronouns: new ContentLink(['He', 'Him', 'His'], new TabSpec('pronouns.md', 'VMarkdown', { componentName: 'VPronouns' })),
-  askMeAbout: [],
+  pronouns: new ContentLink(['He', 'Him', 'His'], new TabSpec('pronouns.md', 'VPronouns')),
+  askMeAbout: new ContentLink([], new HoverSpec('pronouns.md', 'VPronouns')),
   featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
   currentProjects: ['About Me'],
   goals: ['Tech lead'],
@@ -28,7 +29,7 @@ export const details = {
       'Event-driven design',
     ],
   },
-  technologies: {
+  technologies: new ContentLink({
     languages: ['Java', 'JavaScript', 'TypeScript', 'Bash', 'Python'],
     backend: ['Spring Boot MVC', 'Django'],
     frontend: ['Vue', 'Angular'],
@@ -39,7 +40,7 @@ export const details = {
     cloud: ['AWS'],
     devOps: ['GitLab CI', 'GitHub CI', 'Jenkins', 'SonarQube'],
     misc: ['git', 'Docker', 'NginX', 'Linux', 'ProseMirror', 'Jackson'],
-  },
+  }, new HoverSpec('pronouns.md', 'VPronouns')),
   architecture: [],
   otherInterests: ['Coffee', 'Board Games', 'Tabletop RPGs'],
 };

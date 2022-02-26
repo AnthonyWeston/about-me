@@ -1,5 +1,5 @@
 <template>
-  <TSContentLink :value="dependenciesLink">
+  <TSTabLink :value="dependenciesLink">
     <template #default="{ click }">
       <v-card
         class="d-flex flex-column align-center"
@@ -15,18 +15,18 @@
         </div>
       </v-card>
     </template>
-  </TSContentLink>
+  </TSTabLink>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { ContentLink } from '@/components/code/content-link';
-import { TabSpec } from '@/components/ui/tab-spec';
+import { TabSpec } from '@/components/content/tab-spec';
 
 export default defineComponent({
   data: () => ({
     dependencies: ['typescript', 'vue', 'pinia', 'vuetify', '@vue/cli'],
-    dependenciesLink: new ContentLink(null, new TabSpec('architecture.md', 'VMarkdown', { componentName: 'VArchitecture' })),
+    dependenciesLink: new ContentLink(null, new TabSpec('architecture.md', 'VArchitecture')),
   }),
 });
 

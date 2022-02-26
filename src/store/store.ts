@@ -1,4 +1,4 @@
-import { TabSpec } from '@/components/ui/tab-spec';
+import { TabSpec } from '@/components/content/tab-spec';
 import { defineStore } from 'pinia';
 import aboutMe from './about-me';
 

@@ -45,4 +45,18 @@ export default defineComponent({
   #app, .v-application, .v-application__wrap {
     height: 100vh;
   }
+
+  /* Markdown component stuff */
+  html {
+    overflow: hidden !important;
+  }
+
+  section:deep * {
+    padding: revert;
+    margin: revert;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
 </style>

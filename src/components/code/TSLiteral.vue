@@ -1,9 +1,11 @@
 <template>
-  <component
-    :is="componentType"
-    :value="computedValue"
-    :depth="depth"
-  />
+  <span>
+    <component
+      :is="componentType"
+      :value="computedValue"
+      :depth="depth"
+    />
+  </span>
 </template>
 
 <script lang="ts">
@@ -11,6 +13,8 @@ import { ContentLink } from '@/components/code/content-link';
 import {
   computed, defineComponent,
 } from 'vue';
+import { HoverSpec } from '../content/hover-spec';
+import { TabSpec } from '../content/tab-spec';
 import { Primitive } from './literal-types';
 import TSObject from './TSObject.vue';
 import TSPrimitive from './TSPrimitive.vue';
@@ -47,14 +51,12 @@ export default defineComponent({
         } else if (linkValue?.constructor === Object) {
           return Object.fromEntries(Object.entries(linkValue).map(([key, item]) =>
             [key, item instanceof ContentLink ? item : new ContentLink(item, content)]));
-        } else {
-          return value;
         }
       } else if (value instanceof Function) {
         return value.call(null);
-      } else {
-        return value;
       }
+
+      return value;
     });
 
     const componentType = computed(() => {
@@ -62,10 +64,16 @@ export default defineComponent({
       if (isPrimitive(value)) {
         return 'TSPrimitive';
       } else if (value instanceof ContentLink) {
-        return 'TSContentLink';
+        if (value.content instanceof TabSpec) {
+          return 'TSTabLink';
+        } else if (value.content instanceof HoverSpec) {
+          return 'TSHoverLink';
+        }
       } else {
         return 'TSObject';
       }
+
+      throw new RangeError(`Couldn't determine component type from ${value}`);
     });
 
     return {

@@ -88,7 +88,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @use '@/css/styles';
+  @use '@/styles/styles';
 
   .object-key {
     color: styles.$object-key-color;

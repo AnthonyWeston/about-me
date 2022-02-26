@@ -13,20 +13,20 @@
 <script lang="ts">
 import { ContentLink } from '@/components/code/content-link';
 import { useTabStore } from '@/store';
-import { defineComponent } from 'vue';
-import { TabSpec } from '../ui/tab-spec';
+import { defineComponent, PropType } from 'vue';
+import { TabSpec } from '../content/tab-spec';
 
 export default defineComponent({
-  name: 'TSContentLink',
+  name: 'TSTabLink',
   props: {
     value: {
-      type: ContentLink,
+      type: ContentLink as PropType<ContentLink<TabSpec>>,
       required: true,
     },
   },
   setup(props) {
     const store = useTabStore();
-    const addTab = () => store.addTab(TabSpec.copyOf(props.value.content));
+    const addTab = () => store.addTab(props.value.content.getCopy());
     return { addTab };
   },
 });

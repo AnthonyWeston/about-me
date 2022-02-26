@@ -39,7 +39,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-    @use '@/css/styles';
+    @use '@/styles/styles';
 
     .string-literal {
       color: styles.$string-color;

@@ -25,7 +25,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '@/css/styles';
+  @use '@/styles/styles';
 
   div.code-block {
     color: styles.$default-text-color;

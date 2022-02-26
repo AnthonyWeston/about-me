@@ -1,12 +1,12 @@
-import type { TabSpec } from '@/components/ui/tab-spec';
+import { ContentSpec } from '../content/content-spec';
 import type { Literal } from './literal-types';
 
-export class ContentLink {
+export class ContentLink<S extends ContentSpec> {
   readonly value: Literal;
 
-  readonly content: TabSpec;
+  readonly content: S;
 
-  constructor(value: Literal, content: TabSpec) {
+  constructor(value: Literal, content: S) {
     this.value = value;
     this.content = content;
   }
