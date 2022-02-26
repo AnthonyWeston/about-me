@@ -11,7 +11,7 @@
         @close="closeTab(index)"
       />
     </div>
-    <v-sheet class="overflow-y-auto ma-4">
+    <v-sheet class="overflow-y-auto ma-4 flex-grow-1">
       <slot
         :component="selectedTab.component"
         :props="selectedTab.props"
