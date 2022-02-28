@@ -15,12 +15,13 @@ import { ContentLink } from '@/components/code/content-link';
 import { useTabStore } from '@/store';
 import { defineComponent, PropType } from 'vue';
 import { TabSpec } from '../content/tab-spec';
+import { Literal } from './literal-types';
 
 export default defineComponent({
   name: 'TSTabLink',
   props: {
     value: {
-      type: ContentLink as PropType<ContentLink<TabSpec>>,
+      type: ContentLink as PropType<ContentLink<Literal, TabSpec>>,
       required: true,
     },
   },

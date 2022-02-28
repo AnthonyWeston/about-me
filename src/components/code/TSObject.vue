@@ -2,12 +2,12 @@
   <span :class="`depth-mod-${depth % 3}`">{{ openBracket }}</span>
   <div :class="{ 'object-lines': true, inline: !isSingleEntryPerLine }">
     <template
-      v-for="(key, index) in Object.keys(value)"
+      v-for="([key, objectValue], index) in Object.entries(unwrap(value))"
       :key="key"
     >
       <div class="object-content">
-        <span v-if="!Array.isArray(value)" class="object-key">{{ `${key}:` }}&nbsp;</span>
-        <TSLiteral :value="value[key]" :depth="depth + 1" />
+        <span v-if="!Array.isArray(unwrap(value))" class="object-key">{{ `${key}:` }}&nbsp;</span>
+        <TSLiteral :value="objectValue" :depth="depth + 1" />
         <template v-if="isSingleEntryPerLine || index < Object.keys(value).length - 1">,</template>
       </div>
     </template>
@@ -20,14 +20,19 @@
 import {
   computed,
   defineComponent,
+  PropType,
 } from 'vue';
-import { useDisplay } from 'vuetify';
+import { DisplayThresholds, useDisplay } from 'vuetify';
+import { ContentLink } from './content-link';
+import {
+  Literal, NonPrimitiveValue, RawValueType,
+} from './literal-types';
 
 export default defineComponent({
   name: 'TSObject',
   props: {
     value: {
-      type: Object,
+      type: Object as PropType<Literal<NonPrimitiveValue> | ContentLink<Literal<NonPrimitiveValue>>>,
       required: true,
     },
     depth: {
@@ -38,8 +43,18 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const openBracket = computed(() => (Array.isArray(props.value) ? '[' : '{'));
-    const closeBracket = computed(() => (Array.isArray(props.value) ? ']' : '}'));
+    function unwrap<T extends RawValueType>(value: Literal<T> | ContentLink<Literal<T>>): T {
+      if (value instanceof ContentLink) {
+        return unwrap(value.value);
+      } else if (value instanceof Function) {
+        return unwrap(value());
+      } else {
+        return value;
+      }
+    }
+
+    const openBracket = computed(() => (Array.isArray(unwrap(props.value)) ? '[' : '{'));
+    const closeBracket = computed(() => (Array.isArray(unwrap(props.value)) ? ']' : '}'));
 
     const display = useDisplay();
 
@@ -53,18 +68,18 @@ export default defineComponent({
       }
     });
 
-    const orderedBreakpoints = Object.entries(display.thresholds.value)
-      .sort(([bp1, threshold1], [bp2, threshold2]) => threshold1 as number - (threshold2 as number))
-      .map(([breakpoint, threshold]) => breakpoint);
+    const orderedBreakpoints: Array<keyof DisplayThresholds> = (Object.entries(display.thresholds.value) as [[keyof DisplayThresholds, number]])
+      .sort(([_breakpoint1, threshold1], [_breakpoint2, threshold2]) => threshold1 - threshold2)
+      .map(([breakpoint]) => breakpoint);
 
-    const nextBreakpoint = (breakpoint: string) =>
+    const nextBreakpoint = (breakpoint: keyof DisplayThresholds): keyof DisplayThresholds =>
       orderedBreakpoints[Math.min(orderedBreakpoints.length - 1, orderedBreakpoints.indexOf(breakpoint) + 1)];
 
     const isSingleEntryPerLine = computed((): boolean => {
-      const values = Object.values(props.value);
+      const values = Object.values(unwrap(props.value));
 
       // Avoiding instanceof Object here because value could be a Function or a ContentLink
-      if (values.some((value) => value.constructor === Object || value.constructor === Array)) {
+      if (values.some((value) => value?.constructor === Object || value?.constructor === Array)) {
         return true;
       } else if (props.value instanceof Array) {
         const breakpointWidth = display.thresholds.value[nextBreakpoint(display.name.value)];
@@ -81,6 +96,7 @@ export default defineComponent({
       closeBracket,
       maxEntriesPerLine,
       isSingleEntryPerLine,
+      unwrap,
     };
   },
 });

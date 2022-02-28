@@ -21,12 +21,13 @@
 import { ContentLink } from '@/components/code/content-link';
 import { defineComponent, PropType } from 'vue';
 import { HoverSpec } from '../content/hover-spec';
+import { Literal } from './literal-types';
 
 export default defineComponent({
   name: 'TSHoverLink',
   props: {
     value: {
-      type: ContentLink as PropType<ContentLink<HoverSpec>>,
+      type: ContentLink as PropType<ContentLink<Literal, HoverSpec>>,
       required: true,
     },
   },
