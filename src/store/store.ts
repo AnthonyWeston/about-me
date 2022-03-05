@@ -11,8 +11,7 @@ export const useTabStore = defineStore('tabs', {
   state: (): State => ({
     tabs: [
       aboutMe,
-      new TabSpec('test1.txt', 'TSLiteral', { value: 'test1' }),
-      new TabSpec('test2.txt', 'TSLiteral', { value: 'test2' }),
+      new TabSpec('README.md', 'VReadme'),
     ],
     selectedTabIndex: 0,
   }),
