@@ -26,7 +26,7 @@ import { TabSpec } from '@/components/content/tab-spec';
 export default defineComponent({
   data: () => ({
     dependencies: ['typescript', 'vue', 'pinia', 'vuetify', '@vue/cli'],
-    dependenciesLink: new ContentLink(null, new TabSpec('architecture.md', 'VArchitecture')),
+    dependenciesLink: new ContentLink(null, new TabSpec('dependencies.md', 'VDependencies')),
   }),
 });
 
