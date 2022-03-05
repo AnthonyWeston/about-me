@@ -12,24 +12,22 @@ const yearsOfExperience = (): number => {
 
 export const details = {
   name: 'Anthony Weston',
+  pronouns: new ContentLink(['He', 'Him', 'His'], new HoverSpec('pronouns.md', 'VPronouns')),
   occupation: 'Full-stack web developer',
-  pronouns: new ContentLink(['He', 'Him', 'His'], new TabSpec('pronouns.md', 'VPronouns')),
-  askMeAbout: new ContentLink([], new HoverSpec('pronouns.md', 'VPronouns')),
+  currentPosition: 'Senior Developer - State of Ohio',
+  // askMeAbout: [],
   featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
-  currentProjects: ['About Me'],
   goals: ['Tech lead'],
   learning: {
-    current: ['Property-based testing', 'Java 17'],
+    current: ['Vue 3', 'Java 17', 'Test automation'],
     interests: [
-      'Code Quality',
+      'Code quality',
       'Cross-platform development',
-      'Test Automation',
-      'Domain Driven Design',
-      'Microservices',
-      'Event-driven design',
+      'CI/CD',
+      'Test automation',
     ],
   },
-  technologies: new ContentLink({
+  technologies: {
     languages: ['Java', 'JavaScript', 'TypeScript', 'Bash', 'Python'],
     backend: ['Spring Boot MVC', 'Django'],
     frontend: ['Vue', 'Angular'],
@@ -40,8 +38,8 @@ export const details = {
     cloud: ['AWS'],
     devOps: ['GitLab CI', 'GitHub CI', 'Jenkins', 'SonarQube'],
     misc: ['git', 'Docker', 'NginX', 'Linux', 'ProseMirror', 'Jackson'],
-  }, new HoverSpec('pronouns.md', 'VPronouns')),
-  architecture: [],
+  },
+  architecture: ['Vertical slice', 'Microservices', 'Domain-driven design', 'Event-driven design'],
   otherInterests: ['Coffee', 'Board Games', 'Tabletop RPGs'],
 };
 
