@@ -3,6 +3,25 @@
     <v-app-bar app>
       <v-avatar image="rainbow-black-mage.png" class="ma-2" />
       <v-app-bar-title>About Me</v-app-bar-title>
+      <template #append>
+        <v-menu
+          transition="slide-y-transition"
+          anchor="bottom end"
+          :z-index="50000"
+        >
+          <v-list
+            color="surface-lighten-1"
+            class="rounded-lg ma-3"
+            :z-index="9999"
+          >
+            <v-list-item>Coming soon!</v-list-item>
+          </v-list>
+
+          <template #activator="{ props }">
+            <v-btn icon="mdi-menu" v-bind="props" />
+          </template>
+        </v-menu>
+      </template>
     </v-app-bar>
     <v-main class="ma-4">
       <VTabs style="height: 100%;">
