@@ -1,7 +1,7 @@
 <template>
   <v-app full-height>
     <v-app-bar app>
-      <v-avatar image="rainbow-black-mage.png" />
+      <v-avatar image="rainbow-black-mage.png" class="ma-2" />
       <v-app-bar-title>About Me</v-app-bar-title>
     </v-app-bar>
     <v-main class="ma-4">
