@@ -1,6 +1,7 @@
 const { defineConfig } = require('@vue/cli-service');
 
 module.exports = defineConfig({
+  outputDir: 'docs',
   transpileDependencies: true,
   lintOnSave: false,
   pluginOptions: {
@@ -20,4 +21,5 @@ module.exports = defineConfig({
         raw: true,
       });
   },
+  parallel: process.env.NODE_ENV !== 'production',
 });
