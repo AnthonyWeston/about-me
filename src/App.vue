@@ -51,7 +51,7 @@ export default defineComponent({
     overflow: hidden !important;
   }
 
-  section:deep * {
+  section * {
     padding: revert;
     margin: revert;
 
