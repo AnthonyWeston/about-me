@@ -24,14 +24,16 @@
       </template>
     </v-app-bar>
     <v-main class="ma-4">
-      <VTabs style="height: 100%;">
-        <template #default="{ component, props }">
-          <component
-            :is="component"
-            v-bind="props"
-          />
-        </template>
-      </VTabs>
+      <v-container style="height: 100%;" class="d-flex flex-column align-center">
+        <VTabs>
+          <template #default="{ component, props }">
+            <component
+              :is="component"
+              v-bind="props"
+            />
+          </template>
+        </VTabs>
+      </v-container>
     </v-main>
     <v-footer app class="flex-grow-0 d-flex justify-center">
       <VDependencyInfo />

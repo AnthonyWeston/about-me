@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="v-tabs d-flex flex-column">
+  <v-sheet height="100%" width="100%" class="v-tabs d-flex flex-column">
     <div class="tab-bar d-flex flex-nowrap flex-shrink-0 overflow-x-auto overflow-y-hidden">
       <VTab
         v-for="(tab, index) in tabs"
