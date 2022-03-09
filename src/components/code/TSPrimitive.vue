@@ -1,7 +1,7 @@
 <template>
   <span :class="primitiveClass">
     <span v-if="typeof value === 'string'">'</span>
-    <span>{{ displayValue }}</span>
+    <span class="primitive-value">{{ displayValue }}</span>
     <span v-if="typeof value === 'string'">'</span>
   </span>
 </template>
