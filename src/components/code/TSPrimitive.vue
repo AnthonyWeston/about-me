@@ -1,7 +1,7 @@
 <template>
   <span :class="primitiveClass">
     <span v-if="typeof value === 'string'">'</span>
-    <span class="primitive-value">{{ displayValue }}</span>
+    <span>{{ displayValue }}</span>
     <span v-if="typeof value === 'string'">'</span>
   </span>
 </template>
@@ -26,11 +26,11 @@ export default defineComponent({
     displayValue(): string {
       return String(this.value);
     },
-    primitiveClass(): string {
+    primitiveClass(): string | string[] {
       if (this.value === null || ['undefined', 'boolean'].includes(typeof this.value)) {
-        return 'keyword-literal';
+        return 'text-keyword';
       } else {
-        return `${typeof this.value}-literal`;
+        return `text-${typeof this.value}`;
       }
     },
   },
@@ -38,19 +38,8 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss">
-    @use '@/styles/styles';
-
-    .string-literal {
-      color: styles.$string-color;
-      white-space: nowrap;
-    }
-
-    .number-literal {
-      color: styles.$number-color
-    }
-
-    .keyword-literal {
-      color: styles.$keyword-color
-    }
+<style scoped>
+  .text-string {
+    white-space: nowrap;
+  }
 </style>

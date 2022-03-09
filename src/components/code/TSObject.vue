@@ -1,18 +1,18 @@
 <template>
-  <span :class="`depth-mod-${depth % 3}`">{{ openBracket }}</span>
+  <span :class="`text-depth-mod-${depth % 3}`">{{ openBracket }}</span>
   <div :class="{ 'object-lines': true, inline: !isSingleEntryPerLine }">
     <template
       v-for="([key, objectValue], index) in Object.entries(unwrap(value))"
       :key="key"
     >
       <div class="object-content">
-        <span v-if="!Array.isArray(unwrap(value))" class="object-key">{{ `${key}:` }}&nbsp;</span>
+        <span v-if="!Array.isArray(unwrap(value))" class="text-object-key">{{ `${key}:` }}&nbsp;</span>
         <TSLiteral :value="objectValue" :depth="depth + 1" />
         <template v-if="isSingleEntryPerLine || index < Object.keys(value).length - 1">,</template>
       </div>
     </template>
   </div>
-  <span :class="`depth-mod-${depth % 3}`">{{ closeBracket }}</span>
+  <span :class="`text-depth-mod-${depth % 3}`">{{ closeBracket }}</span>
 </template>
 
 <script lang="ts">
@@ -83,7 +83,7 @@ export default defineComponent({
         return true;
       } else if (props.value instanceof Array) {
         const breakpointWidth = display.thresholds.value[nextBreakpoint(display.name.value)];
-        const characterLimit = breakpointWidth / 16;
+        const characterLimit = (0.8 * breakpointWidth) / 16;
         return values.map((x) => String(x)).join().length > characterLimit;
       } else {
         return values.length > maxEntriesPerLine.value * 2;
@@ -104,21 +104,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  @use '@/styles/styles';
-
-  .object-key {
-    color: styles.$object-key-color;
-  }
-
-  .depth-mod-0 {
-    color: #ffd700;
-  }
-  .depth-mod-1 {
-    color: #da70d6;
-  }
-  .depth-mod-2 {
-    color: #179fff;
-  }
 
   .object-lines {
     &:not(.inline) {

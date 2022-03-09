@@ -2,6 +2,7 @@
   <transition name="slide">
     <v-btn
       v-if="show"
+      :color="active ? 'secondary' : 'secondary-lighten-1'"
       :class="['v-tab','text-subtitle-1', 'pa-0', 'rounded-t-lg']"
       :ripple="false"
       rounded="0"
@@ -23,6 +24,10 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
+    active: {
+      type: Boolean,
+      default: false,
+    },
     name: {
       type: String,
       required: true,
@@ -41,7 +46,8 @@ export default defineComponent({
   },
   computed: {
     closeButtonClasses() {
-      const classes = 'text-grey align-self-start ml-n3 mt-1 mr-1 elevation-12'.split(' ');
+      const classes = 'align-self-start ml-n3 mt-1 mr-1'.split(' ');
+      // const classes = 'align-self-start ml-n3 mt-1 mr-1'.split(' ');
       if (this.pinned) classes.push('pinned');
       return classes;
     },

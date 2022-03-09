@@ -1,9 +1,14 @@
 <template>
-  <v-sheet height="100%" width="100%" class="v-tabs d-flex flex-column">
-    <div class="tab-bar d-flex flex-nowrap flex-shrink-0 overflow-x-auto overflow-y-hidden">
+  <!-- container style="height: 100%;" class="d-flex flex-column align-center" -->
+
+  <v-container
+    class="d-flex flex-column rounded-lg bg-surface pa-0 elevation-4"
+  >
+    <div class="tab-bar bg-surface-darken-1 rounded-t-lg d-flex flex-nowrap flex-shrink-0 overflow-x-auto overflow-y-hidden">
       <VTab
         v-for="(tab, index) in tabs"
         :key="tab.id"
+        :active="index === selectedTabIndex"
         :class="tabClasses(index)"
         :name="tab.name"
         :pinned="index === 0"
@@ -17,7 +22,7 @@
         :props="selectedTab.props"
       />
     </v-sheet>
-  </v-sheet>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -57,17 +62,8 @@ export default defineComponent({
     scrollbar-width: 1em;
   }
 
-  .tab-bar {
-    background-color: rgb(0, 0, 0, .3) !important;
-
-    > * {
-      background-color: rgb(33, 33, 33) !important;
-    }
-
-    > :not(.active-tab) {
-      background-color: rgb(42, 42, 42) !important;
-      color: gray !important;
-    }
+  .v-sheet {
+    scrollbar-gutter: stable both-edges
   }
 
 </style>

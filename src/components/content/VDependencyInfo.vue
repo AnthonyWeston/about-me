@@ -2,7 +2,7 @@
   <TSTabLink :value="dependenciesLink">
     <template #default="{ click }">
       <v-card
-        class="d-flex flex-column align-center"
+        class="d-flex flex-column align-center bg-secondary elevation-8"
         @click="click"
       >
         <v-card-title>This project was developed using:</v-card-title>

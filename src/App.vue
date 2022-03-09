@@ -1,6 +1,6 @@
 <template>
-  <v-app full-height>
-    <v-app-bar app>
+  <v-app :theme="theme" full-height>
+    <v-app-bar app color="primary">
       <v-avatar image="rainbow-black-mage.png" class="ma-2" />
       <v-app-bar-title>About Me</v-app-bar-title>
       <template #append>
@@ -14,18 +14,31 @@
             class="rounded-lg ma-3"
             :z-index="9999"
           >
-            <v-list-item>Coming soon!</v-list-item>
+            <v-list-item>
+              <v-switch
+                v-model="theme"
+                class="elevation-0"
+                true-value="code-dark"
+                false-value="code-light"
+                color="accent"
+                label="Dark Mode"
+              />
+            </v-list-item>
           </v-list>
-
           <template #activator="{ props }">
-            <v-btn icon="mdi-menu" v-bind="props" />
+            <v-btn
+              color="primary"
+              class="elevation-2"
+              icon="mdi-menu"
+              v-bind="props"
+            />
           </template>
         </v-menu>
       </template>
     </v-app-bar>
-    <v-main class="ma-4">
-      <v-container style="height: 100%;" class="d-flex flex-column align-center">
-        <VTabs>
+    <v-main>
+      <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
+        <VTabs style="height: 100%;">
           <template #default="{ component, props }">
             <component
               :is="component"
@@ -33,28 +46,31 @@
             />
           </template>
         </VTabs>
-      </v-container>
+      </v-sheet>
     </v-main>
-    <v-footer app class="flex-grow-0 d-flex justify-center">
+    <v-footer app class="flex-grow-0 d-flex justify-center bg-primary">
       <VDependencyInfo />
     </v-footer>
   </v-app>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { useTheme } from 'vuetify/lib/framework';
 import VDependencyInfo from './components/content/VDependencyInfo.vue';
 
 export default defineComponent({
   name: 'App',
   components: { VDependencyInfo },
+  setup() {
+    const theme = ref('code-dark');
+    return { theme };
+  },
 });
 </script>
 
 <style lang="scss">
   :root {
-    color-scheme: dark;
-    background-color: black;
     overflow: hidden;
   }
 

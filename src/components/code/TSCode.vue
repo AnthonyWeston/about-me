@@ -1,13 +1,13 @@
 <template>
-  <div class="code-block">
-    <code>
-      <span class="keyword">const</span> <span class="variable-declaration">aweston</span>:
-      <span class="type">Developer</span> =
-      <TSLiteral
-        :value="value"
-      />
-    </code>
-  </div>
+  <code>
+    <span class="text-export">export </span>
+    <span class="text-keyword">const </span>
+    <span class="text-variable">aweston </span>:
+    <span class="text-type-annotation">Developer</span> =
+    <TSLiteral
+      :value="value"
+    />
+  </code>
 </template>
 
 <script lang="ts">
@@ -25,11 +25,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @use '@/styles/styles';
 
   div.code-block {
-    color: styles.$default-text-color;
-
     line-height: 1.5em;
 
     & :is(span, div) {
@@ -41,15 +38,4 @@ export default defineComponent({
     display: block;
   }
 
-  .keyword {
-    color: styles.$keyword-color;
-  }
-
-  .variable-declaration {
-    color: styles.$variable-declaration-color;
-  }
-
-  .type {
-    color: styles.$type-color;
-  }
 </style>
