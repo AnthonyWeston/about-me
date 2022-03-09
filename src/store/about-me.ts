@@ -11,8 +11,6 @@ const yearsOfExperience = (): number => {
 };
 
 export const details = {
-  hello: null,
-  x: 1,
   name: 'Anthony Weston',
   pronouns: new ContentLink(['He', 'Him', 'His'], new HoverSpec('pronouns.md', 'VPronouns')),
   occupation: 'Full-stack web developer',
