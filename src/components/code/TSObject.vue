@@ -61,8 +61,10 @@ export default defineComponent({
     const maxEntriesPerLine = computed((): number => {
       if (display.lgAndUp.value) {
         return 5;
-      } else if (display.smAndUp.value) {
+      } else if (display.mdAndUp.value) {
         return 3;
+      } else if (display.sm.value) {
+        return 2;
       } else {
         return 1;
       }
@@ -83,7 +85,7 @@ export default defineComponent({
         return true;
       } else if (props.value instanceof Array) {
         const breakpointWidth = display.thresholds.value[nextBreakpoint(display.name.value)];
-        const characterLimit = (0.8 * breakpointWidth) / 16;
+        const characterLimit = (0.7 * breakpointWidth) / 16;
         return values.map((x) => String(x)).join().length > characterLimit;
       } else {
         return values.length > maxEntriesPerLine.value * 2;
