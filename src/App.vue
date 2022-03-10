@@ -96,4 +96,9 @@ export default defineComponent({
       margin-top: 0;
     }
   }
+
+  main * {
+    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+  }
+
 </style>
