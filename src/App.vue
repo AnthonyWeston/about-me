@@ -97,8 +97,20 @@ export default defineComponent({
     }
   }
 
+  $duration: 0.3s;
+  $ease-function: ease-out;
+
+  .v-footer, .v-app-bar, main {
+    & * {
+      will-change: color;
+      transition: background-color $duration $ease-function, color $duration $ease-function;
+    }
+    will-change: color;
+    transition: background-color $duration $ease-function, color $duration $ease-function;
+  }
+
   main * {
-    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+    // transition: background-color 0.3s ease-out, color 0.3s ease-out;
   }
 
 </style>
