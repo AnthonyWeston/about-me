@@ -49,7 +49,7 @@ export default defineComponent({
     const display = useDisplay();
 
     return {
-      maxWidth: computed(() => (display.smAndDown.value ? '100vw' : '50vw')),
+      maxWidth: computed(() => (display.smAndDown.value ? '80vw' : '50vw')),
     };
   },
 });
