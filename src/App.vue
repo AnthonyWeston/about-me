@@ -109,8 +109,4 @@ export default defineComponent({
     transition: background-color $duration $ease-function, color $duration $ease-function;
   }
 
-  main * {
-    // transition: background-color 0.3s ease-out, color 0.3s ease-out;
-  }
-
 </style>

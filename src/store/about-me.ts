@@ -16,7 +16,7 @@ export const details = {
   occupation: 'Full-stack web developer',
   currentPosition: 'Senior Developer - State of Ohio',
   // askMeAbout: [],
-  featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Ionic Budget App'],
+  featuredProjects: ['404 Keybinding Not Found (VSCode)', 'Budget Sample App (Angular/Ionic)'],
   goals: ['Tech lead'],
   learning: {
     current: ['Vue 3', 'Java 17', 'Test automation'],
