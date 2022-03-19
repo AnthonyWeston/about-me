@@ -1,4 +1,5 @@
 <template>
+  <span class="text-h1 text-grey-darken-2" style="position: absolute;">{{ display.name }}</span>
   <DoughnutChart
     :style="{ height: chartHeight }"
     :chart-data="chartData"
@@ -16,7 +17,7 @@ import {
 } from 'chart.js';
 import {
   computed,
-  defineComponent, ref,
+  defineComponent, reactive, ref,
 } from 'vue';
 import { DoughnutChart } from 'vue-chart-3';
 import { useDisplay, useLayout, useTheme } from 'vuetify/lib/framework';
@@ -28,7 +29,7 @@ export default defineComponent({
   name: 'VDonutChart',
   components: { DoughnutChart },
   setup() {
-    const minHeight = 375;
+    const minHeight = 400;
     const layout = useLayout();
     console.log(layout);
 
@@ -71,11 +72,11 @@ export default defineComponent({
     }
 
     const chartOptions = computed((): ChartOptions<'doughnut'> => scale(({
-      responsive: true,
+      // responsive: true,
       aspectRatio: 1,
       maintainAspectRatio: false,
       radius: 150,
-      cutout: '0%',
+      cutout: '10%',
       plugins: {
         title: {
           display: true,
@@ -102,7 +103,6 @@ export default defineComponent({
         },
         legend: {
           position: orientation.value === 'portrait' ? 'bottom' : 'right',
-          textAlign: 'right',
           fullSize: false,
           labels: {
             color: `${currentTheme.value.colors['on-surface']}d`,
@@ -167,8 +167,20 @@ export default defineComponent({
         const backgroundColor = currentTheme.value.dark ? darkerColors : lighterColors;
         const borderColor = currentTheme.value.dark ? lighterColors : darkerColors;
 
+        let label;
+        if (display.xs.value || orientation.value === 'portrait') {
+          label = language;
+        } else {
+          const languages = Object.keys(data);
+          let longestName = languages[0];
+          languages.forEach((l) => { if (l.length > longestName.length) longestName = l; });
+
+          const padMultiplier = display.thresholds.value[display.name.value] / display.thresholds.value.sm;
+          label = language.padEnd(longestName.length * padMultiplier, ' ');
+        }
+
         return {
-          label: language,
+          label,
           data: getZerosWithSingleOneValue(array.length, index),
           circumference: getCircumference(years),
           backgroundColor,
@@ -187,7 +199,12 @@ export default defineComponent({
     console.log(chartTheme.value);
     console.log(display);
     return {
-      chartData, chartOptions, chartWidth, chartHeight, display, chartScale,
+      chartData,
+      chartOptions,
+      chartWidth,
+      chartHeight,
+      display: reactive(display),
+      chartScale,
     };
   },
 });

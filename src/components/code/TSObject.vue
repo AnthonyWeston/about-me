@@ -88,7 +88,6 @@ export default defineComponent({
     });
 
     return {
-      display,
       openBracket,
       closeBracket,
       maxEntriesPerLine,
