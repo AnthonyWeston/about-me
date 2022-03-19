@@ -2,14 +2,16 @@
   <transition name="slide">
     <v-btn
       v-if="show"
-      :color="active ? 'secondary' : 'secondary-lighten-1'"
-      :class="['v-tab','text-subtitle-1', 'pa-0', 'rounded-t-lg']"
+      color="secondary"
+      :class="['v-tab','text-subtitle-1', 'pa-0', 'rounded-t-lg', active ? '' : 'inactive']"
+      :height="36"
       :ripple="false"
       rounded="0"
     >
-      <v-container class="ma-1">{{ name }}</v-container>
+      <v-container :class="['ma-1', active ? '' : 'text-grey-lighten-1']">{{ name }}</v-container>
       <v-icon
         :v-ripple="!pinned"
+        :color="active ? 'on-secondary' : 'grey-lighten-1'"
         :class="closeButtonClasses"
         :icon="pinned ? 'mdi-pin' : 'mdi-close'"
         size="x-small"
@@ -84,5 +86,9 @@ export default defineComponent({
 
   .v-icon:not(.pinned):hover {
     color: #2196F3 !important;
+  }
+
+  .inactive {
+    opacity: 87%
   }
 </style>
