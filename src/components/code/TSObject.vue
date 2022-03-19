@@ -80,8 +80,8 @@ export default defineComponent({
         return true;
       } else if (props.value instanceof Array) {
         const breakpointWidth = display.thresholds.value[nextBreakpoint.value];
-        const characterLimit = (0.7 * breakpointWidth) / 16;
-        return values.map((x) => String(x)).join().length > characterLimit;
+        const characterLimit = (0.75 * breakpointWidth) / 16;
+        return values.map((x) => String(unwrap(x))).join().length > characterLimit;
       } else {
         return values.length > maxEntriesPerLine.value * 2;
       }
