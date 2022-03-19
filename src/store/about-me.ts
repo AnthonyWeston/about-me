@@ -11,8 +11,7 @@ export const yearsOfExperience = (): number => {
 };
 
 export const details = {
-  // name: 'Anthony Weston',
-  name: new ContentLink('Anthony Weston', new TabSpec('chart.js', 'VDonutChart')),
+  name: 'Anthony Weston',
   pronouns: new ContentLink(['He', 'Him', 'His'], new HoverSpec('pronouns.md', 'VPronouns')),
   occupation: 'Full-stack web developer',
   currentPosition: 'Senior Developer - State of Ohio',
@@ -29,7 +28,7 @@ export const details = {
     ],
   },
   technologies: {
-    languages: ['Java', 'JavaScript', 'TypeScript', 'Bash', 'Python'],
+    languages: new ContentLink(['Java', 'TypeScript', 'Bash', 'Python', 'Ruby', 'C#'], new TabSpec('chart.js', 'VDonutChart')),
     backend: ['Spring Boot MVC', 'Django'],
     frontend: ['Vue', 'Angular'],
     mobile: ['Ionic'],
