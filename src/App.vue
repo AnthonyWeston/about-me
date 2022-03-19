@@ -1,7 +1,7 @@
 <template>
   <v-app :theme="theme" full-height>
-    <v-app-bar app color="primary">
-      <v-avatar image="rainbow-black-mage.png" class="ma-2" />
+    <v-app-bar app name="app-bar" color="primary">
+      <v-avatar image="rainbow-black-mage.png" class="ma-2" alt="Anthony Weston" />
       <v-app-bar-title>About Me</v-app-bar-title>
       <template #append>
         <v-menu
@@ -27,7 +27,6 @@
           </v-list>
           <template #activator="{ props }">
             <v-btn
-              color="primary"
               class="elevation-2"
               icon="mdi-menu"
               v-bind="props"
@@ -38,14 +37,14 @@
     </v-app-bar>
     <v-main>
       <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
-        <VTabs style="height: 100%;">
+        <VEditor style="height: 100%;">
           <template #default="{ component, props }">
             <component
               :is="component"
               v-bind="props"
             />
           </template>
-        </VTabs>
+        </VEditor>
       </v-sheet>
     </v-main>
     <v-footer app class="flex-grow-0 d-flex justify-center bg-primary">
@@ -56,7 +55,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useTheme } from 'vuetify/lib/framework';
 import VDependencyInfo from './components/content/VDependencyInfo.vue';
 
 export default defineComponent({

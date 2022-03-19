@@ -2,7 +2,7 @@ import { ContentLink } from '@/components/code/content-link';
 import { HoverSpec } from '@/components/content/hover-spec';
 import { TabSpec } from '@/components/content/tab-spec';
 
-const yearsOfExperience = (): number => {
+export const yearsOfExperience = (): number => {
   const start = new Date(2018, 4);
   const today = new Date();
   const months = (today.getFullYear() - start.getFullYear()) * 12 + today.getMonth() - start.getMonth();
@@ -11,7 +11,8 @@ const yearsOfExperience = (): number => {
 };
 
 export const details = {
-  name: 'Anthony Weston',
+  // name: 'Anthony Weston',
+  name: new ContentLink('Anthony Weston', new TabSpec('chart.js', 'VDonutChart')),
   pronouns: new ContentLink(['He', 'Him', 'His'], new HoverSpec('pronouns.md', 'VPronouns')),
   occupation: 'Full-stack web developer',
   currentPosition: 'Senior Developer - State of Ohio',

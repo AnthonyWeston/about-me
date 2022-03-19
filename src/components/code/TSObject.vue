@@ -22,7 +22,8 @@ import {
   defineComponent,
   PropType,
 } from 'vue';
-import { DisplayThresholds, useDisplay } from 'vuetify';
+import { useDisplay } from 'vuetify/lib/framework';
+import { useNextBreakpoint } from '@/components/ui/display';
 import { ContentLink } from './content-link';
 import {
   Literal, NonPrimitiveValue, RawValueType,
@@ -70,13 +71,7 @@ export default defineComponent({
       }
     });
 
-    const orderedBreakpoints: Array<keyof DisplayThresholds> = (Object.entries(display.thresholds.value) as [[keyof DisplayThresholds, number]])
-      .sort(([_breakpoint1, threshold1], [_breakpoint2, threshold2]) => threshold1 - threshold2)
-      .map(([breakpoint]) => breakpoint);
-
-    const nextBreakpoint = (breakpoint: keyof DisplayThresholds): keyof DisplayThresholds =>
-      orderedBreakpoints[Math.min(orderedBreakpoints.length - 1, orderedBreakpoints.indexOf(breakpoint) + 1)];
-
+    const nextBreakpoint = useNextBreakpoint();
     const isSingleEntryPerLine = computed((): boolean => {
       const values = Object.values(unwrap(props.value));
 
@@ -84,7 +79,7 @@ export default defineComponent({
       if (values.some((value) => value?.constructor === Object || value?.constructor === Array)) {
         return true;
       } else if (props.value instanceof Array) {
-        const breakpointWidth = display.thresholds.value[nextBreakpoint(display.name.value)];
+        const breakpointWidth = display.thresholds.value[nextBreakpoint.value];
         const characterLimit = (0.7 * breakpointWidth) / 16;
         return values.map((x) => String(x)).join().length > characterLimit;
       } else {

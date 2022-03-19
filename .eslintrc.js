@@ -19,6 +19,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-else-return': 'off',
     'no-mixed-operators': 'off',
+    'no-param-reassign': 'warn',
     'no-underscore-dangle': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'vue/max-attributes-per-line': ['error', {

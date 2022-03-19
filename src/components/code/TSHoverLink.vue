@@ -33,7 +33,7 @@
 <script lang="ts">
 import { ContentLink } from '@/components/code/content-link';
 import { computed, defineComponent, PropType } from 'vue';
-import { useDisplay } from 'vuetify';
+import { useDisplay } from 'vuetify/lib/framework';
 import { HoverSpec } from '../content/hover-spec';
 import { Literal } from './literal-types';
 

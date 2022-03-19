@@ -53,17 +53,29 @@ const lightTheme: ThemeDefinition = {
   },
 };
 
+const chart: ThemeDefinition = {
+  colors: {
+    primary: colors.purple.darken3,
+    secondary: colors.blue.darken4,
+    background: colors.green.darken2,
+    surface: colors.yellow.darken3,
+    warning: colors.orange.darken2,
+    error: colors.red.darken2,
+  },
+};
+
 export default createVuetify({
   theme: {
     defaultTheme: 'code-dark',
     themes: {
       'code-dark': darkTheme,
       'code-light': lightTheme,
+      chart,
     },
     variations: {
-      colors: ['surface', 'primary', 'secondary'],
-      lighten: 1,
-      darken: 2,
+      colors: ['primary', 'secondary', 'background', 'surface', 'warning', 'error'],
+      lighten: 3,
+      darken: 4,
     },
   },
 });
