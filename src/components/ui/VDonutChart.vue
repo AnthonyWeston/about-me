@@ -1,5 +1,4 @@
 <template>
-  <span class="text-h1 text-grey-darken-2" style="position: absolute;">{{ display.name }}</span>
   <DoughnutChart
     :style="{ height: chartHeight }"
     :chart-data="chartData"
