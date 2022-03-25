@@ -84,6 +84,7 @@ export default defineComponent({
   /* Markdown component stuff */
   html {
     overflow: hidden !important;
+    color: var(--v-on-surface)
   }
 
   section * {
