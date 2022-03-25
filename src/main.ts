@@ -8,7 +8,7 @@ const importComponents = require.context('.', true, /\.(md|vue)$/);
 
 const registerComponents = (app: ReturnType<typeof createApp>): void => {
   importComponents.keys().forEach((filename) => {
-    const filenameNoExtension = filename.match(/(?<=\/)\w+(?=\.\w+)/)?.[0];
+    const filenameNoExtension = filename.match(/\/(\w+)(?=\.\w+)/)?.[1];
     if (!filenameNoExtension) throw new RangeError(`Invalid component name ${filename}`);
 
     const component = importComponents(filename);
