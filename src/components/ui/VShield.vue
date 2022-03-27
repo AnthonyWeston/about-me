@@ -1,36 +1,29 @@
 <template>
   <img
     class="ma-2"
-    :alt="`Shields.io badge: ${dependency}@${version}`"
-    :src="url"
+    :alt="`Shields.io badge: ${label}@${message}`"
+    :src="`https://img.shields.io/badge/${label}-${escapedMessage}-blue`"
   >
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import packageJson from '@/../package.json';
-
-const { dependencies, devDependencies } = packageJson;
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'VShield',
   props: {
-    dependency: {
-      type: String as PropType<keyof typeof dependencies | keyof typeof devDependencies>,
+    label: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
       required: true,
     },
   },
   computed: {
-    isDevDependency(): boolean {
-      return this.dependency in devDependencies;
-    },
-    version(): string {
-      return { ...dependencies, ...devDependencies }[this.dependency]
-        .replaceAll('-', '--')
-        .replaceAll('_', '__');
-    },
-    url(): string {
-      return `https://img.shields.io/badge/${this.dependency}-${this.version}-blue`;
+    escapedMessage(): string {
+      return this.message.replaceAll('-', '--').replaceAll('_', '__');
     },
   },
 });

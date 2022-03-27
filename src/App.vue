@@ -1,9 +1,19 @@
 <template>
   <v-app :theme="theme" full-height>
-    <v-app-bar app name="app-bar" color="primary">
-      <v-avatar image="rainbow-black-mage.png" class="ma-2" alt="Anthony Weston" />
-      <v-app-bar-title>About Me</v-app-bar-title>
-      <template #append>
+    <v-defaults-provider :defaults="defaults">
+      <v-app-bar
+        app
+        name="app-bar"
+        color="primary"
+      >
+        <!-- Defaults have a bug in 3.0.0-beta.0 -->
+        <!-- See: https://github.com/vuetifyjs/vuetify/issues/14881#issuecomment-1079771148 -->
+        <v-avatar
+          :density="defaults.global.density"
+          image="rainbow-black-mage.png"
+          class="ma-2"
+        />
+        <v-app-bar-title>About Me</v-app-bar-title>
         <v-menu
           transition="slide-y-transition"
           anchor="bottom end"
@@ -26,43 +36,46 @@
             </v-list-item>
           </v-list>
           <template #activator="{ props }">
-            <v-btn
+            <v-app-bar-nav-icon
               class="elevation-2"
               icon="mdi-menu"
               v-bind="props"
             />
           </template>
         </v-menu>
-      </template>
-    </v-app-bar>
-    <v-main>
-      <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
-        <VEditor style="height: 100%;">
-          <template #default="{ component, props }">
-            <component
-              :is="component"
-              v-bind="props"
-            />
-          </template>
-        </VEditor>
-      </v-sheet>
-    </v-main>
-    <v-footer app class="flex-grow-0 d-flex justify-center bg-primary">
-      <VDependencyInfo />
-    </v-footer>
+      </v-app-bar>
+      <v-main>
+        <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
+          <VEditor style="height: 100%;">
+            <template #default="{ component, props }">
+              <component
+                :is="component"
+                v-bind="props"
+              />
+            </template>
+          </VEditor>
+        </v-sheet>
+      </v-main>
+      <v-footer app class="flex-grow-0 d-flex justify-center bg-primary">
+        <VDependencyInfo />
+      </v-footer>
+    </v-defaults-provider>
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import VDependencyInfo from './components/content/VDependencyInfo.vue';
+import { useDefaults } from './components/defaults';
 
 export default defineComponent({
   name: 'App',
   components: { VDependencyInfo },
   setup() {
     const theme = ref('code-dark');
-    return { theme };
+    const defaults = useDefaults();
+
+    return { theme, defaults };
   },
 });
 </script>

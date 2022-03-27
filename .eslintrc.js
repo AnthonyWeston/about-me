@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     'implicit-arrow-linebreak': 'off',
     'import/prefer-default-export': 'off',
+    'max-classes-per-file': 'off',
     'max-len': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
