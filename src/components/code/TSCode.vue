@@ -12,13 +12,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import TSLiteral from './TSLiteral.vue';
 
 export default defineComponent({
   name: 'TSCode',
-  components: {
-    TSLiteral,
-  },
   props: ['value'],
 });
 

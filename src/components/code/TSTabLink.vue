@@ -1,13 +1,14 @@
 <template>
-  <a>
-    <slot :click="addTab">
-      <TSPrimitive
-        :value="value?.value"
-        class="link"
-        @click="addTab"
-      />
-    </slot>
-  </a>
+  <slot :click="addTab">
+    <TSLink icon="mdi-open-in-new" @click="addTab">
+      <template #default="{ attrs }">
+        <TSLiteral
+          v-bind="attrs"
+          :value="value?.value"
+        />
+      </template>
+    </TSLink>
+  </slot>
 </template>
 
 <script lang="ts">
@@ -32,9 +33,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-  .link:deep .primitive-value {
-    text-decoration: underline;
-  }
-</style>

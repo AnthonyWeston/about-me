@@ -24,7 +24,7 @@ import {
 } from 'vue';
 import { useDisplay } from 'vuetify/lib/framework';
 import { useNextBreakpoint } from '@/components/ui/display';
-import { ContentLink } from './content-link';
+import { ContentLink, unwrap } from './content-link';
 import {
   Literal, NonPrimitiveValue, RawValueType,
 } from './literal-types';
@@ -44,16 +44,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    function unwrap<T extends RawValueType>(value: Literal<T> | ContentLink<Literal<T>>): T {
-      if (value instanceof ContentLink) {
-        return unwrap(value.value);
-      } else if (value instanceof Function) {
-        return unwrap(value());
-      } else {
-        return value;
-      }
-    }
-
     const openBracket = computed(() => (Array.isArray(unwrap(props.value)) ? '[' : '{'));
     const closeBracket = computed(() => (Array.isArray(unwrap(props.value)) ? ']' : '}'));
 

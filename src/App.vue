@@ -65,12 +65,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import VDependencyInfo from './components/content/VDependencyInfo.vue';
 import { useDefaults } from './components/defaults';
 
 export default defineComponent({
   name: 'App',
-  components: { VDependencyInfo },
   setup() {
     const theme = ref('code-dark');
     const defaults = useDefaults();

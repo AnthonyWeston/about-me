@@ -2,7 +2,7 @@
   <span>
     <component
       :is="componentType"
-      :value="computedValue"
+      :value="value"
       :depth="depth"
     />
   </span>
@@ -16,15 +16,9 @@ import {
 import { HoverSpec } from '../content/hover-spec';
 import { TabSpec } from '../content/tab-spec';
 import { Primitive } from './literal-types';
-import TSObject from './TSObject.vue';
-import TSPrimitive from './TSPrimitive.vue';
 
 export default defineComponent({
   name: 'TSLiteral',
-  components: {
-    TSObject,
-    TSPrimitive,
-  },
   props: {
     value: {
       type: [String, Number, Boolean, Object, Array, ContentLink, Function],
@@ -60,7 +54,7 @@ export default defineComponent({
     });
 
     const componentType = computed(() => {
-      const { value } = computedValue;
+      const { value } = props;
       if (isPrimitive(value)) {
         return 'TSPrimitive';
       } else if (value instanceof ContentLink) {

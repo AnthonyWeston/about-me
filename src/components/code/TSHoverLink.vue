@@ -2,6 +2,7 @@
   <!-- NOTE: There's currently a bug that causes awkward sliding transition behavior
     after resizing the screen, even when the transition is set to "fade-transition". -->
   <v-overlay
+    eager
     open-on-hover
     open-on-click
     :transition="false"
@@ -9,18 +10,20 @@
     :scrim="false"
     :open-delay="150"
     :close-delay="150"
+    :offset="24"
   >
     <template #activator="{ props }">
-      <!-- eslint-disable-next-line vuejs-accessibility/anchor-has-content -->
-      <a v-bind="props">
-        <TSLiteral
-          :value="value?.value"
-          class="link"
-        />
-      </a>
+      <TSLink icon="mdi-tooltip-text-outline" v-bind="props">
+        <template #default="{ attrs }">
+          <TSLiteral
+            v-bind="attrs"
+            :value="value?.value"
+          />
+        </template>
+      </TSLink>
     </template>
     <v-card
-      :max-width="maxWidth"
+      max-width="50vw"
       color="surface-lighten-1"
       class="fade-transition pa-4 rounded-lg"
       :elevation="8"
@@ -32,8 +35,7 @@
 
 <script lang="ts">
 import { ContentLink } from '@/components/code/content-link';
-import { computed, defineComponent, PropType } from 'vue';
-import { useDisplay } from 'vuetify/lib/framework';
+import { defineComponent, PropType } from 'vue';
 import { HoverSpec } from '../content/hover-spec';
 import { Literal } from './literal-types';
 
@@ -45,18 +47,11 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const display = useDisplay();
-
-    return {
-      maxWidth: computed(() => (display.smAndDown.value ? '80vw' : '50vw')),
-    };
-  },
 });
 </script>
 
 <style lang="scss" scoped>
-  .link:deep .primitive-value {
-    text-decoration: underline;
+  .v-icon {
+    font-size: 1em !important;
   }
 </style>
