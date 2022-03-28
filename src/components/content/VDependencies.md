@@ -7,6 +7,7 @@ Features I learned more about:
 * Composition API
 * Theming
 * Transitions (v-transition and CSS transitions)
+* Dependency injection using inject/provide
 * Breaking changes between Vue 2/Vue 3 - The experience should prove useful in migrating applications I'm currently working on.
 
 ### Pinia

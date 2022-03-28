@@ -7,7 +7,7 @@
     >
       <div class="object-content">
         <span v-if="!Array.isArray(unwrap(value))" class="text-object-key">{{ `${key}:` }}&nbsp;</span>
-        <TSLiteral :value="objectValue" :depth="depth + 1" />
+        <TSLiteral :value="objectValue" />
         <template v-if="isSingleEntryPerLine || index < Object.keys(value).length - 1">,</template>
       </div>
     </template>
@@ -20,13 +20,15 @@
 import {
   computed,
   defineComponent,
+  inject,
   PropType,
+  provide,
 } from 'vue';
 import { useDisplay } from 'vuetify/lib/framework';
 import { useNextBreakpoint } from '@/components/ui/display';
 import { ContentLink, unwrap } from './content-link';
 import {
-  Literal, NonPrimitiveValue, RawValueType,
+  Literal, NonPrimitiveValue,
 } from './literal-types';
 
 export default defineComponent({
@@ -36,14 +38,11 @@ export default defineComponent({
       type: Object as PropType<Literal<NonPrimitiveValue> | ContentLink<Literal<NonPrimitiveValue>>>,
       required: true,
     },
-    depth: {
-      type: Number,
-      required: true,
-      validator: Number.isInteger,
-      default: 0,
-    },
   },
   setup(props) {
+    const depth = inject<number>('depth', 0);
+    provide('depth', depth + 1);
+
     const openBracket = computed(() => (Array.isArray(unwrap(props.value)) ? '[' : '{'));
     const closeBracket = computed(() => (Array.isArray(unwrap(props.value)) ? ']' : '}'));
 
@@ -83,6 +82,7 @@ export default defineComponent({
       maxEntriesPerLine,
       isSingleEntryPerLine,
       unwrap,
+      depth,
     };
   },
 });

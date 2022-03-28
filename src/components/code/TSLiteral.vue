@@ -3,7 +3,6 @@
     <component
       :is="componentType"
       :value="value"
-      :depth="depth"
     />
   </span>
 </template>
