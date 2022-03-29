@@ -3,11 +3,11 @@ import { useDisplay } from 'vuetify/lib/framework';
 
 const defaults = computed(() => {
   const display = useDisplay();
-  const orientation = computed(() => (display.height.value >= display.width.value ? 'portrait' : 'landscape'));
+  const density:'compact' | 'default' = display.height.value < display.thresholds.value.sm ? 'compact' : 'default';
 
   return {
     global: {
-      density: display.smAndDown.value && orientation.value === 'landscape' ? 'compact' : 'default' as 'compact' | 'default',
+      density,
     },
   };
 });

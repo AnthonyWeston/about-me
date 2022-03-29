@@ -4,7 +4,7 @@
       v-if="show"
       color="secondary"
       :class="['v-tab','text-subtitle-1', 'pa-0', 'rounded-t-lg', active ? '' : 'inactive']"
-      :height="36"
+      density="default"
       :ripple="false"
       rounded="0"
     >
