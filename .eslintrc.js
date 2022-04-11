@@ -22,6 +22,7 @@ module.exports = {
     'no-mixed-operators': 'off',
     'no-param-reassign': 'warn',
     'no-underscore-dangle': 'off',
+    'no-use-before-define': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'vue/max-attributes-per-line': ['error', {
       singleline: {

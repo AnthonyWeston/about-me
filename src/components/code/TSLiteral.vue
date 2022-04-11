@@ -1,10 +1,8 @@
 <template>
-  <span>
-    <component
-      :is="componentType"
-      :value="value"
-    />
-  </span>
+  <component
+    :is="componentType"
+    :value="value"
+  />
 </template>
 
 <script lang="ts">

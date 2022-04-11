@@ -2,7 +2,7 @@
   <code>
     <span class="text-export">export </span>
     <span class="text-keyword">const </span>
-    <span class="text-variable">aweston </span>:
+    <span class="text-variable">aweston</span>:
     <span class="text-type-annotation">Developer</span> =
     <TSLiteral
       :value="value"
@@ -20,18 +20,9 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss" scoped>
-
-  div.code-block {
-    line-height: 1.5em;
-
-    & :is(span, div) {
-      user-select: none;
-    }
-  }
-
+<style lang="scss">
   code {
     display: block;
+    white-space: nowrap;
   }
-
 </style>

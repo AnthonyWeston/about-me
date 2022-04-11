@@ -52,7 +52,7 @@ export default defineComponent({
   }
 
   .v-sheet {
-    scrollbar-gutter: stable both-edges
+    scrollbar-gutter: stable both-edges;
   }
 
 </style>
