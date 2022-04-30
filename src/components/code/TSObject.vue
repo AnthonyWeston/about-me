@@ -1,3 +1,100 @@
+<!-- Placing this first because Vetur is having a weird syntax highlighting issue -->
+
+<script lang="ts">
+
+import {
+  computed,
+  defineComponent,
+  inject,
+  PropType,
+  provide,
+  ref,
+} from 'vue';
+import { useDisplay } from 'vuetify/lib/framework';
+import { useNextBreakpoint } from '@/components/ui/display';
+import { ContentLink, unwrap } from './content-link';
+import {
+  Literal, NonPrimitiveValue,
+} from './literal-types';
+import { useDefaults } from '../defaults';
+
+export default defineComponent({
+  name: 'TSObject',
+  props: {
+    value: {
+      type: Object as PropType<Literal<NonPrimitiveValue> | ContentLink<Literal<NonPrimitiveValue>>>,
+      required: true,
+    },
+  },
+  setup(props) {
+    const unwrappedValue = computed(() => unwrap(props.value));
+
+    const depth = ref(inject<number>('depth', 0));
+    provide('depth', depth.value + 1);
+
+    const openBracket = computed(() => (Array.isArray(unwrappedValue.value) ? '[' : '{'));
+    const closeBracket = computed(() => (Array.isArray(unwrappedValue.value) ? ']' : '}'));
+
+    const display = useDisplay();
+
+    const getEntriesPerLine = (value: Literal | ContentLink<Literal>): number => {
+      const unwrapped = unwrap(value);
+      if (!(unwrapped instanceof Object)) return 1;
+
+      let maxEntries;
+      if (display.lgAndUp.value) {
+        maxEntries = 5;
+      } else if (display.mdAndUp.value) {
+        maxEntries = 3;
+      } else if (display.smAndDown.value) {
+        return 1;
+      } else {
+        throw new RangeError('Something wrong with display values');
+      }
+
+      const objectValues = Object.values(unwrapped).map((x) => unwrap(x));
+
+      if (objectValues.some((x) => x instanceof Object)
+        || unwrapped.constructor === Object && Object.keys(unwrapped).length > maxEntries) {
+        return 1;
+      }
+
+      if (maxEntries !== 1 && unwrapped instanceof Array && !objectValues.some((x) => x instanceof Object)) {
+        const averageLength = objectValues.map((x) => String(x).length).reduce((total, current) => total + current) / objectValues.length;
+        if (averageLength <= 10) maxEntries *= 2;
+      }
+
+      return maxEntries;
+    };
+
+    const entriesPerLine = computed(() => getEntriesPerLine(props.value));
+
+    const defaults = useDefaults();
+
+    const collapsible = computed(() => depth.value > 0 && isSingleEntryPerLine.value);
+    // const collapsible = computed(() => display.smAndDown.value && defaults.value.global.density === 'compact');
+    const collapsed = ref(false);
+
+    const getIsSingleEntryPerLine = (value: Literal | ContentLink<Literal>): boolean => getEntriesPerLine(unwrap(value)) === 1;
+    const isSingleEntryPerLine = computed(() => getIsSingleEntryPerLine(props.value));
+
+    return {
+      openBracket,
+      closeBracket,
+      entriesPerLine,
+      isSingleEntryPerLine,
+      getIsSingleEntryPerLine,
+      unwrappedValue,
+      depth,
+      collapsible,
+      collapsed,
+      unwrap,
+    };
+  },
+});
+
+</script>
+
 <template>
   <span class="ts-object">
     <TSLink
@@ -35,7 +132,7 @@
 
             <span v-if="!Array.isArray(unwrappedValue)" class="text-object-key">{{ `${key}:` }}&nbsp;</span>
 
-            <TSLiteral ref="child" :value="!(objectValue instanceof Object) ? `${entriesPerLine} ${isSingleEntryPerLine} ${objectValue} ${index % Object.entries(unwrappedValue).length} ${collapsible}` : objectValue" />
+            <TSLiteral :value="objectValue" />
 
             <template v-if="!(unwrap(objectValue) instanceof Object) && (isSingleEntryPerLine || index < Object.keys(value).length - 1)">,&nbsp;</template>
 
@@ -44,8 +141,8 @@
               :class="['after-object-entry', `depth-${depth}`]"
             >
 
-            <template v-if="unwrappedValue instanceof Array && index !== Object.keys(unwrappedValue).length - 1 && (index + 1) % entriesPerLine === 0">
-              <br class="after-object-entry-2"><TSTab :tabs="depth + 1" />
+            <template v-if="!isSingleEntryPerLine && unwrappedValue instanceof Array && (index !== Object.keys(unwrappedValue).length - 1 && ((index + 1) % entriesPerLine === 0))">
+              <br class="after-array-entry"><TSTab :tabs="depth + 1" />
             </template>
           </template>
 
@@ -66,150 +163,3 @@
     </span>
   </span>
 </template>
-
-<script lang="ts">
-
-import {
-  computed,
-  defineComponent,
-  inject,
-  PropType,
-  provide,
-  ref,
-} from 'vue';
-import { useDisplay } from 'vuetify/lib/framework';
-import { useNextBreakpoint } from '@/components/ui/display';
-import { ContentLink, unwrap } from './content-link';
-import {
-  Literal, NonPrimitiveValue,
-} from './literal-types';
-import { useDefaults } from '../defaults';
-
-export default defineComponent({
-  name: 'TSObject',
-  props: {
-    value: {
-      type: Object as PropType<Literal<NonPrimitiveValue> | ContentLink<Literal<NonPrimitiveValue>>>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const unwrappedValue = computed(() => unwrap(props.value));
-
-    const depth = ref(inject<number>('depth', 0));
-    provide('depth', depth.value + 1);
-
-    const openBracket = computed(() => (Array.isArray(unwrappedValue.value) ? '[' : '{'));
-    const closeBracket = computed(() => (Array.isArray(unwrappedValue.value) ? ']' : '}'));
-
-    const injectedEntriesPerLine = inject<number>('entriesPerLine', 0);
-
-    const getEntriesPerLine = (value: Literal | ContentLink<Literal>): number => {
-      const unwrapped = unwrap(value);
-      if (collapsible.value || !(unwrapped instanceof Object)) return 1;
-
-      if (unwrapped instanceof Array) {
-        // if (entriesPerLine.value === 1) {
-        //   return true;
-        // } else if (collapsible.value || values.some((value) => value?.constructor === Object || value?.constructor === Array)) {
-        //   // Avoiding instanceof Object here because value could be a Function or a ContentLink
-        //   return true;
-        // } else if (props.value instanceof Array) {
-        //   const breakpointWidth = display.thresholds.value[nextBreakpoint.value];
-        //   const characterLimit = (0.75 * breakpointWidth) / 16;
-        //   return values.map((x) => String(unwrap(x))).join().length > characterLimit;
-        // } else {
-        //   return values.length > entriesPerLine.value * 2;
-        // }      const maxEntries = injected;
-        const maxEntries = 3;
-        return maxEntries;
-      } else {
-        // if (collapsible.value) {
-        //   maxEntries = 1;
-        // } else if (display.lgAndUp.value) {
-        //   maxEntries = 5;
-        // } else if (display.mdAndUp.value) {
-        //   maxEntries = 3;
-        // } else if (display.sm.value) {
-        //   maxEntries = 2;
-        // } else {
-        //   maxEntries = 1;
-        // }
-        const maxEntries = injectedEntriesPerLine;
-
-        if (Object.keys(unwrapped).length > maxEntries) {
-          return 1;
-        } else {
-          return maxEntries;
-        }
-      }
-    };
-    const entriesPerLine = computed(() => getEntriesPerLine(props.value));
-
-    const defaults = useDefaults();
-
-    const injectedCollapsed = ref(inject<boolean>('collapsed'));
-    const collapsible = computed(() => injectedCollapsed.value); // && defaults.value.global.density === 'compact');
-    const collapsed = ref(depth.value > 0);
-
-    const getIsSingleEntryPerLine = (value: Literal | ContentLink<Literal>): boolean => getEntriesPerLine(unwrap(value)) === 1;
-    const isSingleEntryPerLine = computed(() => getIsSingleEntryPerLine(props.value));
-
-    return {
-      openBracket,
-      closeBracket,
-      entriesPerLine,
-      isSingleEntryPerLine,
-      getIsSingleEntryPerLine,
-      unwrappedValue,
-      depth,
-      collapsible,
-      collapsed,
-      unwrap,
-    };
-  },
-});
-
-</script>
-
-<style lang="scss">
-  // .ts-object {
-  //   display: contents;
-  // }
-
-  // br.after-object-entry +  * {
-  //   outline: 1px dotted darkorange;
-  //   box-sizing: content-box;
-  // }
-
-  // br.before-object-entry-tab +  * {
-  //   outline: 1px dotted red;
-  //   box-sizing: content-box;
-  // }
-
-  // .object-lines {
-  //   &:not(.inline) {
-  //     margin-left: 2ch;
-  //   }
-
-  //   &.inline {
-  //     display: inline;
-
-  //     > .object-content {
-  //       display: inline;
-  //       margin-left: 1ch;
-  //       margin-right: -1ch;
-
-  //       &:not(:first-child) {
-  //         margin-left: 2ch
-  //       }
-  //     }
-  //   }
-
-  //   .object-content:last-child {
-  //     outline: 2px solid green;
-  //     display: inline-block;
-  //     margin-right: 1ch;
-  //   }
-  // }
-</style>

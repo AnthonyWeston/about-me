@@ -8,17 +8,17 @@
 <script lang="ts">
 import { ContentLink } from '@/components/code/content-link';
 import {
-  computed, defineComponent,
+  computed, defineComponent, PropType,
 } from 'vue';
 import { HoverSpec } from '../content/hover-spec';
 import { TabSpec } from '../content/tab-spec';
-import { Primitive } from './literal-types';
+import { Primitive, Value } from './literal-types';
 
 export default defineComponent({
   name: 'TSLiteral',
   props: {
     value: {
-      type: [String, Number, Boolean, Object, Array, ContentLink, Function],
+      type: [String, Number, Boolean, Object, Array, ContentLink, Function] as PropType<Value | ContentLink<Value>>,
       required: false,
       default: undefined,
     },

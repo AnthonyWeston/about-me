@@ -14,9 +14,3 @@ export default defineComponent({
 });
 
 </script>
-
-<style scoped>
-  span {
-    border-bottom: 1px dotted darkslategray;
-  }
-</style>

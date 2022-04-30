@@ -45,74 +45,16 @@
         </v-menu>
       </v-app-bar>
       <v-main>
-        <!-- <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
+        <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
           <VEditor style="height: 100%;">
-            <template #default="{ component, props }"> -->
-        <v-container>
-          <v-row justify="end">
-            <v-col cols="5">
-              <div class="text-h3">collapsed: false, entriesPerLine: 1</div>
-            </v-col>
-            <v-col cols="5">
-              <div class="text-h3">collapsed: false, entriesPerLine: 3</div>
-            </v-col>
-          </v-row>
-          <v-row no-gutters justify="end">
-            <v-col :cols="5">
-              <TSInject :collapsed="false" :entries-per-line="1">
-                <div class="small">
-                  <component
-                    :is="'TSCode'"
-                    v-bind="{ value: details }"
-                  />
-                </div>
-              </TSInject>
-            </v-col>
-            <v-col :cols="5">
-              <TSInject :collapsed="false" :entries-per-line="3">
-                <div class="small">
-                  <component
-                    :is="'TSCode'"
-                    v-bind="{ value: details }"
-                  />
-                </div>
-              </TSInject>
-            </v-col>
-          </v-row>
-          <v-row justify="end" class="mt-8">
-            <v-col cols="5">
-              <div class="text-h3">collapsed: true, entriesPerLine: 1</div>
-            </v-col>
-            <v-col cols="5">
-              <div class="text-h3">collapsed: true, entriesPerLine: 3</div>
-            </v-col>
-          </v-row>
-          <v-row justify="end" no-gutters>
-            <v-col cols="5">
-              <TSInject :collapsed="true" :entries-per-line="1">
-                <div class="small">
-                  <component
-                    :is="'TSCode'"
-                    v-bind="{ value: details }"
-                  />
-                </div>
-              </TSInject>
-            </v-col>
-            <v-col cols="5">
-              <TSInject :collapsed="true" :entries-per-line="3">
-                <div class="small">
-                  <component
-                    :is="'TSCode'"
-                    v-bind="{ value: details }"
-                  />
-                </div>
-              </TSInject>
-            </v-col>
-          </v-row>
-        </v-container>
-        <!-- </template>
+            <template #default="{ component, props }">
+              <component
+                :is="component"
+                v-bind="props"
+              />
+            </template>
           </VEditor>
-        </v-sheet> -->
+        </v-sheet>
       </v-main>
       <v-footer app class="flex-grow-0 d-flex justify-center bg-primary">
         <VDependencyInfo />
@@ -123,35 +65,20 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { details } from '@/store/about-me';
 import { useDefaults } from './components/defaults';
-import TSInject from './components/code/TSInject.vue';
 
 export default defineComponent({
   name: 'App',
-  components: { TSInject },
   setup() {
     const theme = ref('code-dark');
     const defaults = useDefaults();
-    return { theme, defaults, details };
+
+    return { theme, defaults };
   },
 });
 </script>
 
 <style lang="scss">
-
-  .small {
-    width: 600px;
-    height: 750px;
-    overflow: hidden;
-    outline: 3px solid green;
-    overflow: auto;
-    // transform: scale(.5);
-  }
-  code {
-    font-size: 24px !important;
-  }
-
   :root {
     overflow: hidden;
   }
