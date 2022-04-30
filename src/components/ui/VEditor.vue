@@ -31,7 +31,6 @@
 import { useTabStore } from '@/store';
 import { storeToRefs } from 'pinia';
 import { defineComponent } from 'vue';
-import VEditorTab from './VEditorTab.vue';
 
 export default defineComponent({
   setup() {

@@ -14,8 +14,4 @@ export class TabSpec extends ContentSpec {
   get id() {
     return this._id;
   }
-
-  getCopy(): TabSpec {
-    return new TabSpec(this.name, this.component, ContentSpec.deepCopy(this.props));
-  }
 }

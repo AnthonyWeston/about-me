@@ -28,7 +28,7 @@ export default defineComponent({
   },
   setup(props) {
     const store = useTabStore();
-    const addTab = () => store.addTab(props.value.content.getCopy());
+    const addTab = () => store.addTab(props.value.content);
     return { addTab };
   },
 });

@@ -16,6 +16,4 @@ export abstract class ContentSpec {
     this.component = component;
     this.props = props;
   }
-
-  abstract getCopy(): ContentSpec;
 }

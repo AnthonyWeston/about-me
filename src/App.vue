@@ -48,10 +48,12 @@
         <v-sheet style="height: 100%;" class="pa-4" color="surface-darken-2">
           <VEditor style="height: 100%;">
             <template #default="{ component, props }">
-              <component
-                :is="component"
-                v-bind="props"
-              />
+              <KeepAlive>
+                <component
+                  :is="component"
+                  v-bind="props"
+                />
+              </KeepAlive>
             </template>
           </VEditor>
         </v-sheet>
