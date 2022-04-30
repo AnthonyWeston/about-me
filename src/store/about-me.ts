@@ -10,6 +10,24 @@ export const yearsOfExperience = (): number => {
   return Math.round(months / 3) * 0.25;
 };
 
+const languageExperience = {
+  Java: 6,
+  'JavaScript/TypeScript': 6,
+  Bash: 4,
+  Python: 2.8,
+  Ruby: 2.33,
+  'C#': 1.67,
+};
+
+const frameworkExperience = {
+  'Spring Boot MVC': 6,
+  Vue: 5,
+  Vuetify: 3,
+  Angular: 2,
+  Django: 1,
+  '.NET': 1,
+};
+
 export const details = {
   name: 'Anthony Weston',
   pronouns: new ContentLink(['He', 'Him', 'His'], new HoverSpec('pronouns.md', 'VPronouns')),
@@ -17,9 +35,14 @@ export const details = {
   currentPosition: 'Senior Developer - State of Ohio',
   goals: ['Tech lead'],
   technologies: {
-    languages: new ContentLink(['Java', 'TypeScript', 'Bash', 'Python', 'Ruby', 'C#'], new TabSpec('chart.js', 'VDonutChart')),
-    backend: ['Spring Boot MVC', 'Node.js', 'Django', '.NET'],
-    frontend: ['Vue 2 / Vue 3', 'Vuetify', 'Angular', 'Material Design'],
+    languages: new ContentLink(
+      ['Java', 'TypeScript', 'Bash', 'Python', 'Ruby', 'C#'],
+      new TabSpec('languages.js', 'VDonutChart', { title: 'Programming/Scripting Languages', data: languageExperience }),
+    ),
+    frameworks: new ContentLink(
+      ['Spring Boot MVC', 'Vue 2 / Vue 3', 'Vuetify', 'Django', 'Angular', '.NET'],
+      new TabSpec('frameworks.js', 'VDonutChart', { title: 'Frameworks and Libraries', data: frameworkExperience }),
+    ),
     devOps: ['GitLab CI', 'Jenkins', 'SonarQube'],
     buildTools: ['Babel/Webpack', 'Maven', 'Docker'],
     codeQuality: ['SonarQube', 'ESLint', 'Checkstyle'],
@@ -29,7 +52,7 @@ export const details = {
   },
   featuredProjects: ['About Me (this website)', '404 Keybinding Not Found (VSCode)'],
   learning: {
-    current: ['Event-driven architecture, Domain-driven design'],
+    current: ['Event-driven architecture', 'Domain-driven design'],
     interests: ['Code quality', 'Cross-platform development', 'Test automation'],
   },
   otherInterests: ['Coffee', 'Board Games', 'Tabletop RPGs'],

@@ -16,21 +16,29 @@ import {
 } from 'chart.js';
 import {
   computed,
-  defineComponent, reactive, ref,
+  defineComponent, PropType, reactive, ref,
 } from 'vue';
 import { DoughnutChart } from 'vue-chart-3';
 import { useDisplay, useLayout, useTheme } from 'vuetify/lib/framework';
-import { useNextBreakpoint } from './display';
 
 Chart.register(DoughnutController, ArcElement, Legend, Title, SubTitle);
 
 export default defineComponent({
   name: 'VDonutChart',
   components: { DoughnutChart },
-  setup() {
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    data: {
+      type: Object as PropType<Record<string, number>>,
+      required: true,
+    },
+  },
+  setup(props) {
     const minHeight = 400;
     const layout = useLayout();
-    console.log(layout);
 
     const display = useDisplay();
 
@@ -39,7 +47,7 @@ export default defineComponent({
       return height >= display.width.value ? 'portrait' : 'landscape';
     });
 
-    const chartWidth = computed((): number => { console.log(display.xs.value); return display.xs.value ? display.thresholds.value.sm : display.width.value; });
+    const chartWidth = computed((): number => (display.xs.value ? display.thresholds.value.sm : display.width.value));
     const chartHeight = computed((): string => `max(${minHeight}px, ${(display.xs.value ? '65%' : '90%')})`);
 
     const chartScale = computed((): number => {
@@ -79,7 +87,7 @@ export default defineComponent({
       plugins: {
         title: {
           display: true,
-          text: 'Programming/Scripting Languages',
+          text: props.title,
           font: {
             family: 'Roboto',
             size: display.smAndUp.value ? 48 : 36,
@@ -89,7 +97,7 @@ export default defineComponent({
         },
         subtitle: {
           display: true,
-          text: 'Relative experience/proficiency',
+          text: 'Proficiency',
           color: `${currentTheme.value.colors['on-surface']}d`,
           font: {
             family: 'Roboto',
@@ -118,16 +126,6 @@ export default defineComponent({
       },
     }), chartScale.value));
 
-    const totalYears = 6;
-    const data = {
-      Java: totalYears,
-      'JavaScript/TypeScript': totalYears,
-      Bash: 4,
-      Python: 2.8,
-      Ruby: 2.33,
-      'C#': 1.67,
-    };
-
     const options = computed((): Partial<ArcOptions> => ({
       borderJoinStyle: 'miter',
       borderRadius: 4,
@@ -151,7 +149,7 @@ export default defineComponent({
       weight: 0.75,
     });
 
-    const getCircumference = (years: number): number => 360 * years / totalYears;
+    const getCircumference = (years: number): number => 360 * years / Math.max(...Object.values(props.data));
 
     const getZerosWithSingleOneValue = (length: number, index: number) => {
       const array = new Array(length).fill(0);
@@ -159,7 +157,7 @@ export default defineComponent({
       return array;
     };
 
-    const datasets = computed(() => Object.entries(data)
+    const datasets = computed(() => Object.entries(props.data)
       .map(([language, years], index, array) => {
         const darkerColors = chartColors.map((color) => chartTheme.value.colors[`${color}-darken-3`]);
         const lighterColors = chartColors.map((color) => chartTheme.value.colors[`${color}-darken-1`]);
@@ -170,7 +168,7 @@ export default defineComponent({
         if (display.xs.value || orientation.value === 'portrait') {
           label = language;
         } else {
-          const languages = Object.keys(data);
+          const languages = Object.keys(props.data);
           let longestName = languages[0];
           languages.forEach((l) => { if (l.length > longestName.length) longestName = l; });
 
@@ -195,8 +193,7 @@ export default defineComponent({
       datasets: datasets.value,
       labels: datasets.value.filter((dataset) => dataset.label).map((dataset) => [dataset.label]),
     }));
-    console.log(chartTheme.value);
-    console.log(display);
+
     return {
       chartData,
       chartOptions,
