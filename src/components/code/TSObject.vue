@@ -11,12 +11,10 @@ import {
   ref,
 } from 'vue';
 import { useDisplay } from 'vuetify/lib/framework';
-import { useNextBreakpoint } from '@/components/ui/display';
 import { ContentLink, unwrap } from './content-link';
 import {
   Literal, NonPrimitiveValue,
 } from './literal-types';
-import { useDefaults } from '../defaults';
 
 export default defineComponent({
   name: 'TSObject',
@@ -69,10 +67,7 @@ export default defineComponent({
 
     const entriesPerLine = computed(() => getEntriesPerLine(props.value));
 
-    const defaults = useDefaults();
-
     const collapsible = computed(() => depth.value > 0 && isSingleEntryPerLine.value);
-    // const collapsible = computed(() => display.smAndDown.value && defaults.value.global.density === 'compact');
     const collapsed = ref(false);
 
     const getIsSingleEntryPerLine = (value: Literal | ContentLink<Literal>): boolean => getEntriesPerLine(unwrap(value)) === 1;
@@ -100,7 +95,7 @@ export default defineComponent({
     <TSLink
       v-if="collapsible"
       :icon="collapsed ? 'mdi-chevron-right' : 'mdi-chevron-down'"
-      @click="collapsed = !collapsed"
+      @click.stop="collapsed = !collapsed"
     />
     <span :class="`text-depth-mod-${depth % 3}`">{{ openBracket }}</span>
 
