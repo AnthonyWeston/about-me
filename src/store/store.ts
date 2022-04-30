@@ -20,8 +20,12 @@ export const useTabStore = defineStore('tabs', {
   },
   actions: {
     addTab(tab: TabSpec) {
-      this.tabs.splice(this.selectedTabIndex + 1, 0, tab);
-      this.selectedTabIndex += 1;
+      if (this.tabs.includes(tab)) {
+        this.selectedTabIndex = this.tabs.indexOf(tab);
+      } else {
+        this.tabs.splice(this.selectedTabIndex + 1, 0, tab);
+        this.selectedTabIndex += 1;
+      }
     },
     selectTab(index: number) {
       this.selectedTabIndex = index;
