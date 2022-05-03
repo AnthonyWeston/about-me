@@ -24,15 +24,31 @@
             class="rounded-lg ma-3"
             :z-index="9999"
           >
-            <v-list-item>
+            <v-list-item class="align-center">
               <v-switch
                 v-model="theme"
+                hide-details
                 class="elevation-0"
                 true-value="code-dark"
                 false-value="code-light"
                 color="accent"
                 label="Dark Mode"
               />
+            </v-list-item>
+            <v-list-item class="align-center">
+              <v-btn
+                variant="text"
+                class="text-on-primary text-body-1"
+                href="https://github.com/AnthonyWeston/anthonyweston.github.io/issues/new/choose"
+                target="_blank"
+              >
+                <v-icon
+                  class="ml-n3 mr-3 text-high-emphasis"
+                  icon="mdi-alert-circle"
+                  size="large"
+                />
+                <v-label>Report an Issue</v-label>
+              </v-btn>
             </v-list-item>
           </v-list>
           <template #activator="{ props }">
@@ -121,4 +137,7 @@ export default defineComponent({
     transition: background-color $duration $ease-function, color $duration $ease-function;
   }
 
+  .v-menu label, .v-switch, .v-switch {
+    opacity: 1 !important;
+  }
 </style>
