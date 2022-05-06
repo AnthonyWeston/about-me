@@ -2,7 +2,7 @@
 
 We chose to upgrade an application from Vue 2/Java 8 to Vue 3/Java 17. The three primary reasons for this decision were:
 
-- To ensure we continue to stay on supported versions
+- Ensure we continue to stay on supported versions
 - Enjoy performance improvements
 - Take advantage of language and framework features
 
