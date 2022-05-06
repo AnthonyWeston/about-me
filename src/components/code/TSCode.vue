@@ -24,5 +24,6 @@ export default defineComponent({
   code {
     display: block;
     white-space: nowrap;
+    text-underline-offset: 1px;
   }
 </style>
