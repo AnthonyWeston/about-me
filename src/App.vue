@@ -116,12 +116,16 @@ export default defineComponent({
     color: var(--v-on-surface)
   }
 
-  section * {
-    padding: revert;
-    margin: revert;
+  section {
+    max-width: 800px;
 
-    &:first-child {
-      margin-top: 0;
+    & * {
+      padding: revert;
+      margin: revert;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
   }
 
