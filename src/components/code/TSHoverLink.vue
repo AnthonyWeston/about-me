@@ -1,16 +1,12 @@
 <template>
   <!-- NOTE: There's currently a bug that causes awkward sliding transition behavior
     after resizing the screen, even when the transition is set to "fade-transition". -->
-  <v-overlay
-    eager
-    open-on-hover
+  <v-tooltip
+    bottom="true"
     open-on-click
-    :transition="false"
-    position-strategy="connected"
-    :scrim="false"
-    :open-delay="150"
-    :close-delay="150"
-    :offset="24"
+    open-delay="100"
+    close-delay="100"
+    location="bottom right"
   >
     <template #activator="{ props }">
       <TSLink icon="mdi-tooltip-text-outline" v-bind="props">
@@ -25,12 +21,12 @@
     <v-card
       max-width="50vw"
       color="surface-lighten-1"
-      class="fade-transition pa-4 rounded-lg"
+      class="fade-transition pa-4 rounded-xl"
       :elevation="8"
     >
       <component :is="value.content.component" />
     </v-card>
-  </v-overlay>
+  </v-tooltip>
 </template>
 
 <script lang="ts">
@@ -53,5 +49,9 @@ export default defineComponent({
 <style lang="scss" scoped>
   .v-icon {
     font-size: 1em !important;
+  }
+
+  ::v-deep .v-overlay__content {
+    background-color: rgba(0, 0, 0, 0)
   }
 </style>

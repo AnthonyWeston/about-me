@@ -25,5 +25,6 @@ export default {
 <style>
   .link .primitive-value {
     text-decoration: underline;
+    cursor: pointer;
   }
 </style>

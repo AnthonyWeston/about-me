@@ -111,20 +111,28 @@ export default defineComponent({
   }
 
   /* Markdown component stuff */
-  html {
-    overflow: hidden !important;
-    color: var(--v-on-surface)
-  }
-
   section {
-    max-width: 800px;
+    html {
+      overflow: hidden !important;
+      color: var(--v-on-surface);
+    }
+
+    & h1 {
+      line-height: normal;
+    }
 
     & * {
       padding: revert;
       margin: revert;
+    }
 
-      &:first-child {
+    body {
+      & *:first-child {
         margin-top: 0;
+      }
+
+      & *:last-child {
+        margin-bottom: 0;
       }
     }
   }
