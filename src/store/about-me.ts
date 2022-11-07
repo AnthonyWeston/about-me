@@ -32,7 +32,7 @@ export const details = {
   name: 'Anthony Weston',
   pronouns: new ContentLink(['He', 'Him', 'His'], new HoverSpec('pronouns.md', 'VPronouns')),
   occupation: 'Full-stack web developer',
-  currentPosition: 'Senior Developer - State of Ohio',
+  currentPosition: 'IT Applications Developer Specialist - Nationwide',
   stories: [
     new ContentLink('Vue/Java version upgrades', new TabSpec('upgrades.md', 'VUpgradeStory', {})),
   ],
