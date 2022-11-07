@@ -3,20 +3,22 @@
     <v-btn
       v-if="show"
       color="secondary"
-      :class="['v-tab','text-subtitle-1', 'pa-0', 'rounded-t-lg', active ? '' : 'inactive']"
+      :class="['v-tab','text-subtitle-1', 'rounded-t-lg', active ? '' : 'inactive']"
       density="default"
       :ripple="false"
       rounded="0"
     >
-      <v-container :class="['ma-1', active ? '' : 'text-grey-lighten-1']">{{ name }}</v-container>
-      <v-icon
-        :v-ripple="!pinned"
-        :color="active ? 'on-secondary' : 'grey-lighten-1'"
-        :class="closeButtonClasses"
-        :icon="pinned ? 'mdi-pin' : 'mdi-close'"
-        size="x-small"
-        @click.stop="close"
-      />
+      <v-container :class="['pa-0', active ? '' : 'text-grey-lighten-1']">
+        <span>{{ name }}</span>
+        <v-icon
+          :v-ripple="!pinned"
+          :color="active ? 'on-secondary' : 'grey-lighten-1'"
+          :class="closeButtonClasses"
+          :icon="pinned ? 'mdi-pin' : 'mdi-close'"
+          size="x-small"
+          @click.stop="close"
+        />
+      </v-container>
     </v-btn>
   </transition>
 </template>
@@ -48,8 +50,7 @@ export default defineComponent({
   },
   computed: {
     closeButtonClasses() {
-      const classes = 'align-self-start ml-n3 mt-1 mr-1'.split(' ');
-      // const classes = 'align-self-start ml-n3 mt-1 mr-1'.split(' ');
+      const classes = 'align-self-start ml-2 mt-n4 mr-n3'.split(' ');
       if (this.pinned) classes.push('pinned');
       return classes;
     },

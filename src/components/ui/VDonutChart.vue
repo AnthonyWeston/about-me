@@ -63,8 +63,8 @@ export default defineComponent({
     });
 
     const theme = ref(useTheme());
-    const chartTheme = computed(() => theme.value.getTheme('chart'));
-    const currentTheme = computed(() => theme.value.getTheme(theme.value.current));
+    const chartTheme = computed(() => theme.value.computedThemes.chart);
+    const currentTheme = computed(() => theme.value.current);
 
     function scale(options: Record<string, any>, scaleFactor: number) {
       Object.keys(options).forEach((key) => {
